@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'jwt_auth',
-    'institutions'
+    'institutions',
+    'scrapbooks',
+    'digital_images'
 ]
 
 MIDDLEWARE = [
