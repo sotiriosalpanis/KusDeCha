@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from ..models import Scrapbook
 
-class ScapbookSerializer(serializers.ModelSerializer):
+class ScrapbookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Scrapbook
