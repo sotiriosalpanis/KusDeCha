@@ -26,7 +26,11 @@ class ScrapbookListView(APIView):
 
 class ScrapbookDetailView(APIView):
 
+    permissions_classes = (IsAuthenticatedOrReadOnly,)
+
     def get_scrapbook(self, pk):
+        
+
         try:
             return Scrapbook.objects.get(pk=pk)
         except Scrapbook.DoesNotExist:
@@ -36,4 +40,13 @@ class ScrapbookDetailView(APIView):
         scrapbook = self.get_scrapbook(pk=pk)
         serialized_scrapbook = ScrapbookSerializer(scrapbook)
         return Response(serialized_scrapbook.data, status=status.HTTP_200_OK)
+    
+    def put(self,request,pk):
+        scrapbook_to_update = self.get_scrapbook(pk=pk)
+        print('SCRAPBOOK TO UPDATE>>>>>',ScrapbookSerializer(scrapbook_to_update))
+        updated_scrapbook = ScrapbookSerializer(scrapbook_to_update, data=request.data)
+        if updated_scrapbook.is_valid():
+            updated_scrapbook.save()
+            return Response(updated_scrapbook.data, status=status.HTTP_202_ACCEPTED)
+        return Response(updated_scrapbook.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
