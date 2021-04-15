@@ -48,4 +48,11 @@ class ScrapbookDetailView(APIView):
             updated_scrapbook.save()
             return Response(updated_scrapbook.data, status=status.HTTP_202_ACCEPTED)
         return Response(updated_scrapbook.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+    
+    def delete(self,request,pk):
+        scrapbook_to_delete = self.get_scrapbook(pk=pk)
+        if request.user.id == scrapbook_to_delete.creator.id:
+            scrapbook_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_403_FORBIDDEN)
 
