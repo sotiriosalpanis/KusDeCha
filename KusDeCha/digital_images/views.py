@@ -50,4 +50,9 @@ class DigitalImageDetailView(APIView):
             return Response(updated_digital_image.data, status=status.HTTP_200_OK)
         return Response(updated_digital_image.errors, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
-    
+    def delete(self,request,pk):
+        digital_image_to_delete = self.get_digital_image(pk=pk)
+        if request.user.id == digital_image_to_delete.creator.id:
+            digital_image_to_delete.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_403_FORBIDDEN)

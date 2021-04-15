@@ -6,8 +6,8 @@ class DigitalImage(models.Model):
     digital_image_id = models.CharField(max_length=50, blank=True)
     catalogue_image_id = models.CharField(max_length=50)
     tags = ArrayField(models.CharField(max_length=50), blank=True)
-    catalogue_title = models.TextField()
-    work_type = models.CharField(max_length=50)
+    catalogue_title = models.TextField(blank=True)
+    work_type = models.CharField(max_length=50, blank=True)
 
     origin_institution = models.ForeignKey(
         'institutions.Institution',
