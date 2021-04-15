@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 from .models import Scrapbook
 from .serializers.common import ScrapbookSerializer
+from .serializers.populated import PopulatedScrapbookSerializer
 
 class ScrapbookListView(APIView):
 
@@ -13,7 +14,7 @@ class ScrapbookListView(APIView):
 
     def get(self,_request):
         scrapbooks = Scrapbook.objects.all()
-        serialized_scrapbooks = ScrapbookSerializer(scrapbooks, many=True)
+        serialized_scrapbooks = PopulatedScrapbookSerializer(scrapbooks, many=True)
         return Response(serialized_scrapbooks.data, status=status.HTTP_200_OK)
 
     def post(self, request):
@@ -29,8 +30,6 @@ class ScrapbookDetailView(APIView):
     permissions_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_scrapbook(self, pk):
-        
-
         try:
             return Scrapbook.objects.get(pk=pk)
         except Scrapbook.DoesNotExist:
@@ -38,12 +37,12 @@ class ScrapbookDetailView(APIView):
     
     def get(self,_request,pk):
         scrapbook = self.get_scrapbook(pk=pk)
-        serialized_scrapbook = ScrapbookSerializer(scrapbook)
+        serialized_scrapbook = PopulatedScrapbookSerializer(scrapbook)
         return Response(serialized_scrapbook.data, status=status.HTTP_200_OK)
     
     def put(self,request,pk):
         scrapbook_to_update = self.get_scrapbook(pk=pk)
-        print('SCRAPBOOK TO UPDATE>>>>>',ScrapbookSerializer(scrapbook_to_update))
+        request.data["creator"] = scrapbook_to_update.creator.id
         updated_scrapbook = ScrapbookSerializer(scrapbook_to_update, data=request.data)
         if updated_scrapbook.is_valid():
             updated_scrapbook.save()

@@ -10,7 +10,6 @@ class Scrapbook(models.Model):
         related_name='scrapbook_creator',
         on_delete=models.CASCADE
     )
-    # contributors
 
     def __str__(self):
         return f"{self.name} by {self.creator}"
