@@ -21,11 +21,11 @@ function InstitutionIndex() {
       { institutions && 
         <div>
           { institutions.map(institution => (
-            <h1 key={institution.id}>
-              <Link to={`/institutions/${institution.id}`} >
-                {institution.institution_name}
-              </Link>
-            </h1>
+
+            <Link to={`/institutions/${institution.id}`} key={institution.id} {...institution}>
+              {institution.institution_name}
+            </Link>
+
           ))}
         </div>
       
