@@ -20,5 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('jwt_auth.urls')),
     path('api/institutions/',include('institutions.urls')),
-    path('api/scrapbooks/',include('scrapbooks.urls'))
+    path('api/scrapbooks/',include('scrapbooks.urls')),
+    path('api/images/',include('digital_images.urls'))
 ]

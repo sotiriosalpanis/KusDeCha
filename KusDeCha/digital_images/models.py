@@ -15,5 +15,11 @@ class DigitalImage(models.Model):
         on_delete = models.CASCADE
     )
 
+    creator = models.ForeignKey(
+        'jwt_auth.User',
+        related_name='digital_image_creator',
+        on_delete=models.CASCADE
+    )
+
     def __str__(self):
         return f'{self.digital_image_id} - {self.origin_institution}'
