@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 // import { useParams } from 'react-router-dom'
 import axios from 'axios'
 
+import ObjectCard from './ObjectCard'
+
 const InstitutionShow = () => {
 
   const apiRoot = 'https://api.wellcomecollection.org/catalogue/v2/'
-  const pageSize = 50
+  const pageSize = 100
   const page = 1
 
   const [ institution, setInstitution ] = useState(null)
@@ -25,17 +27,12 @@ const InstitutionShow = () => {
   
   const { results } = institution
 
-  console.log('API DATA',results)
-
-  results.map(result => {
-    // console.log(result.id)
-    // console.log(result.source.title)
-    console.log(result)
-  })
-
   return (
     <div>
-      HIYA!
+      {results.map(result => {
+        return <ObjectCard key={result.id} { ...result } />
+      })
+      }
     </div>
   )
 }
