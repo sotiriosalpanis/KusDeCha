@@ -1,33 +1,12 @@
 import OpenSeaDragon from 'openseadragon'
 import React, { useEffect, useState } from 'react'
 
-const OpenSeaDragonViewer = ({ image }) => {
-  
-  const [viewer, setViewer] = useState( null)
+const OpenSeaDragonViewer = ( { iiifManifestURL } ) => {
 
-  useEffect(() => {
-    if (image && viewer) {
-      viewer.open(image.source)
-    }
-  }, [image])
+  // const iiifManifestURL = 'https://iiif.wellcomecollection.org/image/b2866937x_0001.jp2/info.json'
 
+  const [viewer, setViewer] = useState(null)
 
-  const InitOpenseadragon = () => {
-    viewer && viewer.destroy()
-    setViewer(
-      OpenSeaDragon({
-        id: 'openSeaDragon',
-        prefixUrl: 'openseadragon-images/',
-        animationTime: 0.5,
-        blendTime: 0.1,
-        constrainDuringPan: true,
-        maxZoomPixelRatio: 2,
-        minZoomLevel: 1,
-        visibilityRatio: 1,
-        zoomPerScroll: 2,
-      })
-    )
-  }
   useEffect(() => {
     InitOpenseadragon()
     return () => {
@@ -35,15 +14,40 @@ const OpenSeaDragonViewer = ({ image }) => {
     }
   }, [])
 
+
+  const InitOpenseadragon = () => {
+    viewer && viewer.destroy()
+    setViewer(
+      OpenSeaDragon({
+        id: 'openSeaDragon',
+        preserveViewport: true,
+        animationTime: 0.5,
+        zoomPerScroll: 2,
+        visibilityRatio: 0.5,
+        zoomInButton: 'zoom-in',
+        zoomOutButton: 'zoom-out',
+        showNavigator: true,
+        tileSources: iiifManifestURL,
+      })
+    )
+  }
+
   return (
-    <div 
-      id="openSeaDragon" 
-      style={{
-        height: '800px',
-        width: '1200px',
-      }}
-    >
-    </div>
+    <section>
+      <div>
+        <a id='zoom-in' href='#zoom-in' title="Zoom in">Zoom in</a>
+        <a id='zoom-out' href='#zoom-out' title="Zoom in">Zoom out</a>
+      </div>
+      <div 
+        id="openSeaDragon" 
+        style={{
+          height: '700px',
+          width: '1200px',
+        }}
+      >
+      </div>
+    </section>
+
   )
  
 }
