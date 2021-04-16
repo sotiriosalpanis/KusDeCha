@@ -7,6 +7,7 @@ import InstitutionIndex from './components/Collections/InstitutionIndex'
 import InstitutionShow from './components/Collections/InstitutionShow'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
+import ObjectShow from './components/Collections/ObjectShow'
 
 
 const App = () => {
@@ -30,6 +31,9 @@ const App = () => {
           </Route>
           <Route exact path='/institutions'>
             <InstitutionIndex />
+          </Route>
+          <Route path='/object/:id'>
+            <ObjectShow />
           </Route>
         </Switch>
       </BrowserRouter>
