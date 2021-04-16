@@ -8,6 +8,7 @@ import InstitutionShow from './components/Collections/InstitutionShow'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
 import ObjectShow from './components/Collections/ObjectShow'
+import ImageViewerTest from './components/Collections/ImageViewerTest'
 
 
 const App = () => {
@@ -34,6 +35,9 @@ const App = () => {
           </Route>
           <Route path='/object/:id'>
             <ObjectShow />
+          </Route>
+          <Route path='/test'>
+            <ImageViewerTest />
           </Route>
         </Switch>
       </BrowserRouter>
