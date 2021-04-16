@@ -5,6 +5,8 @@ import Home from './components/Home'
 import Navbar from './components/Navbar'
 import InstitutionIndex from './components/Collections/InstitutionIndex'
 import InstitutionShow from './components/Collections/InstitutionShow'
+import Login from './Auth/Login'
+import Register from './Auth/Register'
 
 
 const App = () => {
@@ -17,13 +19,18 @@ const App = () => {
           <Route exact path='/'>
             <Home />
           </Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route path='/register'>
+            <Register />
+          </Route>
           <Route path='/institutions/:id'>
             <InstitutionShow />
           </Route>
           <Route exact path='/institutions'>
             <InstitutionIndex />
           </Route>
-
         </Switch>
       </BrowserRouter>
     </>
