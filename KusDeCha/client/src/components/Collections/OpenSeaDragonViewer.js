@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react'
 
 const OpenSeaDragonViewer = ( { iiifManifestURL } ) => {
 
-  // const iiifManifestURL = 'https://iiif.wellcomecollection.org/image/b2866937x_0001.jp2/info.json'
-
   const [viewer, setViewer] = useState(null)
 
   useEffect(() => {
