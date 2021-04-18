@@ -28,8 +28,8 @@ const ObjectCard = ({ thumbnail, id }) => {
   return (
     // <Link to={`/object/${imageID}`}>
     <Link to={{
-      pathname: `/object/${imageID}`,
-      hash: `#${id}`,
+      pathname: `/object/${id}`,
+      hash: `#${imageID}`,
     }}>
       <img src={image}/>
     </Link>

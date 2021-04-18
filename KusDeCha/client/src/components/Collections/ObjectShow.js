@@ -1,5 +1,6 @@
-// import React, { useState, useEffect } from 'react'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+// import { useLocation } from 'react-router-dom'
 import { useParams, useLocation } from 'react-router-dom'
 import AddToScrapbook from './AddToScrapbook'
 import OpenSeaDragonViewer from './OpenSeaDragonViewer'
@@ -9,21 +10,33 @@ const ObjectShow = () => {
 
 
   const { id } = useParams()
-  const { hash } = useLocation()
-  console.log(hash)
-  const apiRoot = 'https://iiif.wellcomecollection.org/image'
+  const  { hash } = useLocation()
+  const digitalImageId = hash.replace('#','')
 
-  const manifestURL = `${apiRoot}/${id}/info.json`
+  const [ imageCatalogue, setImageCatalogue ] = useState(null)
 
+  useEffect(() => {
+    const getData = async() => {
+      const { data } = await axios.get(`https://api.wellcomecollection.org/catalogue/v2/images/${id}`)
+      setImageCatalogue(data)
+    } 
+    getData()
+  },[])
 
-  console.log(manifestURL)
+  if (!imageCatalogue) return null
+
+  const imageInformation = { ...imageCatalogue, digitalId: digitalImageId }
+
+  // console.log('New objec:', imageInformation)
+
 
   return (
     <div>
-      <h2>Object Show Page</h2>
-      <AddToScrapbook />
+      <h2>{imageCatalogue.source.title}</h2>
+      <p></p>
+      <AddToScrapbook { ...imageInformation } />
       <div>
-        <OpenSeaDragonViewer iiifManifestURL={manifestURL}/>
+        <OpenSeaDragonViewer iiifManifestURL={imageCatalogue.thumbnail.url}/>
       </div>
       
     </div>
