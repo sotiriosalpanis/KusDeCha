@@ -7,7 +7,7 @@ import ObjectCard from './ObjectCard'
 const InstitutionShow = () => {
 
   const apiRoot = 'https://api.wellcomecollection.org/catalogue/v2/'
-  const pageSize = 100
+  const pageSize = 10
   const page = 1
 
   const [ institution, setInstitution ] = useState(null)
@@ -26,6 +26,7 @@ const InstitutionShow = () => {
 
   
   const { results } = institution
+
 
   return (
     <div>

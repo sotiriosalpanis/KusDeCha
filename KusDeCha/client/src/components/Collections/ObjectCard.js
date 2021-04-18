@@ -2,9 +2,11 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-const ObjectCard = ({ thumbnail }) => {
+const ObjectCard = ({ thumbnail, id }) => {
 
   const [ objectImage, setObjectImage ] = useState(null)
+
+  console.log('id',id)
 
   useEffect(() => {
     const getData = async() => {
@@ -24,9 +26,12 @@ const ObjectCard = ({ thumbnail }) => {
   const image = `${imageURLRoot}/full/${imageWidth},${imageHeight}/0/default.${imageFormat}`
 
   return (
-    <Link to={`/object/${imageID}`}>
-      {/* <p>{imageID}</p> */}
-      <img src={image} />
+    // <Link to={`/object/${imageID}`}>
+    <Link to={{
+      pathname: `/object/${imageID}`,
+      hash: `#${id}`,
+    }}>
+      <img src={image}/>
     </Link>
   )
 }

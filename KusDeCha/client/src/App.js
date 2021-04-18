@@ -8,6 +8,8 @@ import InstitutionShow from './components/Collections/InstitutionShow'
 import Login from './Auth/Login'
 import Register from './Auth/Register'
 import ObjectShow from './components/Collections/ObjectShow'
+import Scrapbooks from './components/Collections/Scrapbooks'
+import CreateScrapbook from './components/Collections/CreateScrapbook'
 
 
 const App = () => {
@@ -34,6 +36,12 @@ const App = () => {
           </Route>
           <Route path='/object/:id'>
             <ObjectShow />
+          </Route>
+          <Route exact path='/scrapbooks'>
+            <Scrapbooks />
+          </Route>
+          <Route path='/scrapbooks/create'>
+            <CreateScrapbook />
           </Route>
         </Switch>
       </BrowserRouter>
