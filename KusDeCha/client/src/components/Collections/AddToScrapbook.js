@@ -42,30 +42,33 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
     setSelectedDigitalImage({ ...selectedDigitalImage, ['id']: event.target.value, ['name']: selectedName[0].name })
   }
 
-
-  const handleSubmit = async event => {
-    event.preventDefault()
+  const handleDigitalImageSubmit = async () => {
     try {
       const { data } = await axios.post('/api/images/', scrapbookBody, {
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
       })
-      const newSelectedImage = [data.id]
-      const updatedImageSelection = { ...selectedDigitalImage , ['digital_images']: [ ...newSelectedImage ] }
-      console.log(selectedDigitalImage['digital_images'])
-      setSelectedDigitalImage(updatedImageSelection)
-      console.log('DIGITAL IMAGE BODY>>>',selectedDigitalImage)
+      console.log(data)
+      const digitalImageId = [ ...selectedDigitalImage.digital_images ,data.id]
+      const updatedSelectedImageSelection = { ...selectedDigitalImage, ['digital_images']: digitalImageId }
+      setSelectedDigitalImage(updatedSelectedImageSelection)
     } catch (err) {
-      console.log('Digital Image error',err.response.data)
+      console.log(err)
     }
+  }
+
+  console.log('SELECTIONS>>>>', selectedDigitalImage)
+
+  const handleSubmit = async event => {
+    event.preventDefault()
     try {
       const response = await axios.put(`/api/scrapbooks/${selectedDigitalImage.id}/`,selectedDigitalImage, {
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
       })
-      console.log(response)
+      console.log('Success',response)
     } catch (err) {
       console.log('Scrapbook error',err.response.data)
     }
@@ -76,6 +79,7 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
 
   return (
     <div>
+      <button onClick={handleDigitalImageSubmit}>Add to collection</button>
       <form onSubmit={handleSubmit}>
         <select 
           onChange={handleSelect}
