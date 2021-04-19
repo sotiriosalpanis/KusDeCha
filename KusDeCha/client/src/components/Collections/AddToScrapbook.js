@@ -16,8 +16,6 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
 
   const [ scrapbookOptions, setScrapbookOptions ] = useState(null)
 
-  // const [ selectedScrapbook, setSelectedScrapbook ] = useState(null)
-
   const [ selectedDigitalImage, setSelectedDigitalImage ] = useState({
     name: '',
     digital_images: [],
@@ -54,8 +52,10 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
         },
       })
       const newSelectedImage = [data.id]
-      const updatedImageSelection = { ...selectedDigitalImage , ['digital_images']: newSelectedImage }
+      const updatedImageSelection = { ...selectedDigitalImage , ['digital_images']: [ ...newSelectedImage ] }
+      console.log(selectedDigitalImage['digital_images'])
       setSelectedDigitalImage(updatedImageSelection)
+      console.log('DIGITAL IMAGE BODY>>>',selectedDigitalImage)
     } catch (err) {
       console.log('Digital Image error',err.response.data)
     }

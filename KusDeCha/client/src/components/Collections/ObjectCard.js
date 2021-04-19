@@ -6,8 +6,6 @@ const ObjectCard = ({ thumbnail, id }) => {
 
   const [ objectImage, setObjectImage ] = useState(null)
 
-  console.log('id',id)
-
   useEffect(() => {
     const getData = async() => {
       const { data } = await axios.get(thumbnail.url)
@@ -26,7 +24,6 @@ const ObjectCard = ({ thumbnail, id }) => {
   const image = `${imageURLRoot}/full/${imageWidth},${imageHeight}/0/default.${imageFormat}`
 
   return (
-    // <Link to={`/object/${imageID}`}>
     <Link to={{
       pathname: `/object/${id}`,
       hash: `#${imageID}`,
