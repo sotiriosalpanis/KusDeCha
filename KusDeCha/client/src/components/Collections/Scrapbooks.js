@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import CreateScrapbook from './CreateScrapbook'
 
 const Scrapbooks = () => {
@@ -20,10 +21,12 @@ const Scrapbooks = () => {
     <div>
       <h3>Scrapbooks</h3>
       { scrapbooks.map(scrapbook => {
-        return <div key={scrapbook.id}>
-          <h4>{scrapbook.name}</h4>
-          <p>Created by: {scrapbook.creator.username}</p>
-        </div>
+        return <Link key={scrapbook.id} to={`/scrapbooks/${scrapbook.id}`}>
+          <div >
+            <h4>{scrapbook.name}</h4>
+            <p>Created by: {scrapbook.creator.username}</p>
+          </div>
+        </Link>
       })}
       <div>
         <CreateScrapbook />

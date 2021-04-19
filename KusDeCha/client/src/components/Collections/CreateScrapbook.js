@@ -1,8 +1,11 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 
 const CreateScrapbook = () => {
+
+  const history = useHistory()
 
   const [ formData, setFormData ] = useState({ 
     name: '' ,
@@ -17,19 +20,19 @@ const CreateScrapbook = () => {
   const handleSubmit = async event => {
     event.preventDefault()
     try {
-      const response = await axios.post('/api/scrapbooks/',formData, {
+      const { data } = await axios.post('/api/scrapbooks/',formData, {
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
       })
-      console.log(response)
+      console.log(data)
+      history.push(`/scrapbooks/${data.id}`)
     } catch (err) {
       console.log(err.response.data.errors)
     }
     
   }
 
-  console.log(formData)
 
   return (
     <div>

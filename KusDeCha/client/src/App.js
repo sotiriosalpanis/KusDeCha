@@ -9,7 +9,8 @@ import Login from './Auth/Login'
 import Register from './Auth/Register'
 import ObjectShow from './components/Collections/ObjectShow'
 import Scrapbooks from './components/Collections/Scrapbooks'
-import CreateScrapbook from './components/Collections/CreateScrapbook'
+// import CreateScrapbook from './components/Collections/CreateScrapbook'
+import ScrapbookShow from './components/Collections/ScrapbookShow'
 
 
 const App = () => {
@@ -40,8 +41,8 @@ const App = () => {
           <Route exact path='/scrapbooks'>
             <Scrapbooks />
           </Route>
-          <Route path='/scrapbooks/create'>
-            <CreateScrapbook />
+          <Route path='/scrapbooks/:id'>
+            <ScrapbookShow />
           </Route>
         </Switch>
       </BrowserRouter>
