@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CreateScrapbook from './CreateScrapbook'
 import ScrapbookImageCard from './ScrapbookImageCard'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 
 const Scrapbooks = () => {
 
@@ -18,11 +18,10 @@ const Scrapbooks = () => {
   },[])
 
   if (!scrapbooks) return null
-  // console.log(scrapbooks[0].digital_images[0].id)
 
   return (
     <div>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <h3>Scrapbooks</h3>
       { scrapbooks.map(scrapbook => {
         return <Link key={scrapbook.id} to={`/scrapbooks/${scrapbook.id}`}>

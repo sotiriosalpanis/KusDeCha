@@ -16,8 +16,6 @@ const InstitutionSearchPreview = ( { searchTerm }) => {
     getData()
   },[searchTerm])
 
-  console.log(searchResults)
-
   if (!searchResults) return null
 
   return (

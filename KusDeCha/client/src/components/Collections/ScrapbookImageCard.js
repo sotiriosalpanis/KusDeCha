@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 
 const ScrapbookImageCard = ( { imageInfo }) => {
 
-  // console.log(imageInfo)
 
   const [ image, setImage ] = useState(null)
 
@@ -15,7 +14,6 @@ const ScrapbookImageCard = ( { imageInfo }) => {
     getData()
   },[])
 
-  console.log(image)
   if (!image) return null
 
   const imageURLRoot = image['@id']

@@ -30,7 +30,7 @@ const InstitutionCard = ( { props } ) => {
       <hr />
       <p>{props.description}</p>
       <p>Visit the website: {props.website}</p>
-      <ObjectCard { ...randomPicture[0] } />
+      <ObjectCard { ...randomPicture[0] } size={1} />
     </div>
   )
 }

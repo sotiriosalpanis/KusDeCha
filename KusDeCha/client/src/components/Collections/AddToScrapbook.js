@@ -63,7 +63,10 @@ const AddToScrapbook2 = ( { id,  source } ) => {
     console.log(selectScrapbook[event.target.value])
     if (event.target.value !== 'new') {
       setNewScrapbook(false)
-      const existingImages = selectScrapbook[event.target.value].digital_images.map(image => image.id)
+      let existingImages = []
+      if (selectScrapbook[event.target.value].digital_images.length > 0) {
+        existingImages = selectScrapbook[event.target.value].digital_images.map(image => image.id)
+      }
       const updatedScrapbookBody = { ...selectScrapbook[event.target.value], ['digital_images']: [...existingImages, digitalImage.id ] }
       setScrapbookBody(updatedScrapbookBody)
     } else {
@@ -94,14 +97,13 @@ const AddToScrapbook2 = ( { id,  source } ) => {
   })
 
 
-
   return (
     <div>
       <div>
         {scrapbooksAlreadyAddedTo.length !== 0 ?
           <>
             <p>Already added to: </p>
-            {           scrapbooksAlreadyAddedTo.map(scrapbook => {
+            { scrapbooksAlreadyAddedTo.map(scrapbook => {
               return <Link to={`/scrapbooks/${scrapbook.id}`} key={scrapbook.id}>
                 <p >{scrapbook.name}</p>
               </Link>
