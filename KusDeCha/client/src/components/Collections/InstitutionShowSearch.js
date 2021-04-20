@@ -67,7 +67,7 @@ const InstitutionShowSearch = ( ) => {
             return <Link key={result.id}
               to={`/object/${result.id}`}
             >
-              <ObjectCard { ...result } />
+              <ObjectCard { ...result } size={1} />
             </Link>
           })}
         </section>

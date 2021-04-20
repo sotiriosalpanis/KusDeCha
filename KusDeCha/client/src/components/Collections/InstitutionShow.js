@@ -102,13 +102,13 @@ const InstitutionShow = () => {
             return <Link key={result.id}
               to={ `/object/${result.id}`}
             >
-              <ObjectCard  { ...result } />
+              <ObjectCard  { ...result } size={1}/>
             </Link>
             
           })
             :
             searchSet.results.map(result => {
-              return <ObjectCard key={result.id} { ...result } />
+              return <ObjectCard key={result.id} { ...result } size={1} />
             })
           }
         </div>

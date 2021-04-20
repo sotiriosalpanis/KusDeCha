@@ -1,8 +1,8 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import InstitutionSearchPreview from './InstitutionSearchPreview'
 import ScrapbookImageCard from './ScrapbookImageCard'
-// import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 
 const ScrapbookShow = () => {
 
@@ -11,6 +11,9 @@ const ScrapbookShow = () => {
     creator: {},
     digital_images: [],
   })
+
+  const [ searchTerm, setSearchTerm ] = useState(null)
+  const [ search, setSearch ] = useState(null)
 
   const { id } = useParams()
 
@@ -22,45 +25,24 @@ const ScrapbookShow = () => {
     getData()
   },[])
 
+  const handleChange = event => {
+    setSearchTerm(event.target.value)
+    if (!event.target.value) setSearch(false)
+  }
 
 
-  // const handleChange = async event => {
-  //   console.log(event.target.name)
-  //   const digitalImageArray = scrapbook.digital_images.map(image => {
-  //     return image.id
-  //   })
-  //   const newFormData = { ...scrapbook , [event.target.name]: event.target.value, ['digital_images']: [...digitalImageArray] }
-  //   setScrapbook(newFormData)
-    
-  //   try {
-  //     const { data } = await axios.put(`/api/scrapbooks/${id}/`, scrapbook,{
-  //       headers: {
-  //         Authorization: `Bearer ${getTokenFromLocalStorage()}`,
-  //       },
-  //     })
-  //     console.log(data)
-  //   } catch (err) {
-  //     console.log(err.response.data)
-  //   }
-  // }
 
+  useEffect(() => {
+    setSearch(searchTerm)
+  },[searchTerm])
 
 
   if (!scrapbook) return null
 
-  // console.log(scrapbook)
+  
 
   return (
     <div>
-      {/* <form>
-        <input
-          onChange={handleChange}
-          name='name'
-          value={scrapbook.name}
-          placeholder={scrapbook.name}
-        />
-          
-      </form> */}
       <h2>{scrapbook.name}</h2>
       <h3>by {scrapbook.creator.username}</h3>
       {scrapbook.digital_images.length > 0 ?
@@ -74,6 +56,24 @@ const ScrapbookShow = () => {
         :
         <p>No images</p>
       }
+      <div>
+        <form>
+          <input 
+            value={searchTerm}
+            onChange={handleChange}
+          />
+          <button type='submit'>Search</button>
+        </form>
+        { search ?
+          <InstitutionSearchPreview searchTerm={search}/>
+          :
+          <p></p>
+        }
+        
+
+        
+      </div>
+      
     </div>
   )
 }
