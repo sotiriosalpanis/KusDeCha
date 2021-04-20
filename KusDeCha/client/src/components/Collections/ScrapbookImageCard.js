@@ -19,15 +19,14 @@ const ScrapbookImageCard = ( { imageInfo }) => {
   if (!image) return null
 
   const imageURLRoot = image['@id']
-  const imageHeight = image.sizes[1].height
-  const imageWidth = image.sizes[1].width
+  const imageHeight = image.sizes[2].height
+  const imageWidth = image.sizes[2].width
   const imageFormat = image.profile[1].formats
   const imageURL = `${imageURLRoot}/square/${imageWidth},${imageHeight}/0/default.${imageFormat}`
 
 
   return (
     <div>
-      <h4>{imageInfo.catalogue_title}</h4>
       <img src={imageURL} />
     </div>
   )

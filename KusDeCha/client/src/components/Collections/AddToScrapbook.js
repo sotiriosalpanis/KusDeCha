@@ -3,10 +3,9 @@ import axios from 'axios'
 
 import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 import CreateScrapbook from './CreateScrapbook'
+import { Link } from 'react-router-dom'
 
 const AddToScrapbook2 = ( { id,  source } ) => {
-
-  // Allow user to add tags
 
   const [ digitalImage, selectedDigitalImage ] = useState([])
   const [ selectScrapbook, setSelectScrapbook ] = useState(null)
@@ -19,6 +18,7 @@ const AddToScrapbook2 = ( { id,  source } ) => {
     work_type: source.type,
     tags: [],
   })
+
 
   const handleImageSelection = async() => {
     if (!digitalImage) {
@@ -57,8 +57,6 @@ const AddToScrapbook2 = ( { id,  source } ) => {
     getData()
   },[])
 
-
-
   if (!selectScrapbook) return null
 
   const handleChange = event => {
@@ -74,7 +72,6 @@ const AddToScrapbook2 = ( { id,  source } ) => {
 
   }
 
-
   const handleSubmit = async event => {
     event.preventDefault()
     try {
@@ -87,13 +84,33 @@ const AddToScrapbook2 = ( { id,  source } ) => {
     } catch (err) {
       console.log('Scrapbook error',err.response.data)
     }
-  } 
+  }
+
+  const scrapbooksAlreadyAddedTo = selectScrapbook.filter(scrapbook => {
+    const alreadyAddedto = scrapbook.digital_images.filter(digiImage => {
+      return digiImage.catalogue_image_id === id
+    })
+    return alreadyAddedto.length > 0
+  })
+
 
 
   return (
-
-
     <div>
+      <div>
+        {scrapbooksAlreadyAddedTo.length !== 0 ?
+          <>
+            <p>Already added to: </p>
+            {           scrapbooksAlreadyAddedTo.map(scrapbook => {
+              return <Link to={`/scrapbooks/${scrapbook.id}`} key={scrapbook.id}>
+                <p >{scrapbook.name}</p>
+              </Link>
+            })}
+          </>
+          :
+          <p>Not added to any scrapbooks yet</p>
+        }
+      </div>
       <button
         onClick={handleImageSelection}
       >
@@ -117,15 +134,18 @@ const AddToScrapbook2 = ( { id,  source } ) => {
               value='new'
             >New</option>
           </select>
-          {newScrapbook ? 
-            <CreateScrapbook />
-            :
-            <p></p>
-          }
+          
           <button
             onClick={handleSubmit}
           >+</button>
         </form>
+        {newScrapbook ?
+          <div>
+            <CreateScrapbook />
+          </div>
+          :
+          <p></p>
+        }
       </div>
     </div>
   )

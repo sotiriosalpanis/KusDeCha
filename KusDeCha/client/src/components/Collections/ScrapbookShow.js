@@ -65,7 +65,11 @@ const ScrapbookShow = () => {
       <h3>by {scrapbook.creator.username}</h3>
       {scrapbook.digital_images.length > 0 ?
         scrapbook.digital_images.map(image => {
-          return <ScrapbookImageCard key={image.id} imageInfo={image} />
+          return <div key={image.id}> 
+            <h4 >{image.catalogue_title}</h4>
+            <ScrapbookImageCard  imageInfo={image} />
+          </div>
+
         })
         :
         <p>No images</p>

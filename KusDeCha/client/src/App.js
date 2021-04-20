@@ -9,6 +9,7 @@ import Register from './Auth/Register'
 import ObjectShow from './components/Collections/ObjectShow'
 import Scrapbooks from './components/Collections/Scrapbooks'
 import ScrapbookShow from './components/Collections/ScrapbookShow'
+import InstitutionShowSearch from './components/Collections/InstitutionShowSearch'
 
 
 const App = () => {
@@ -20,6 +21,9 @@ const App = () => {
         <Switch>
           <Route exact path='/explore'>
             <InstitutionIndex />
+          </Route>
+          <Route exact path='/search'>
+            <InstitutionShowSearch />
           </Route>
           <Route path='/login'>
             <Login />
