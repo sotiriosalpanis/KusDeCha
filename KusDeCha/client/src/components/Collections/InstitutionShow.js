@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 import ObjectCard from './ObjectCard'
@@ -14,7 +15,7 @@ const InstitutionShow = () => {
   const [ pageNumber, setPageNumber ] = useState(1)
   const [ pageSize, setPageSize ] = useState(50)
 
-  const [searchTerm, setSearchTerm ] = useState(null)
+  const [searchTerm, setSearchTerm ] = useState('')
   const [searchSet, setSearchSet ] = useState(null)
 
   useEffect(() => {
@@ -98,7 +99,12 @@ const InstitutionShow = () => {
         </div>
         <div>
           {!searchTerm ? institution.results.map(result => {
-            return <ObjectCard key={result.id} { ...result } />
+            return <Link key={result.id}
+              to={`/object/${result.id}`}
+            >
+              <ObjectCard  { ...result } />
+            </Link>
+            
           })
             :
             searchSet.results.map(result => {

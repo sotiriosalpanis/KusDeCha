@@ -49,18 +49,13 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
       })
-      console.log('Previous- in scrapbook already',selectedDigitalImage.digital_images)
-      console.log('Image to add', data.id)
       const digitalImageId = [ ...selectedDigitalImage.digital_images ,data.id]
-      console.log('List afterwards',digitalImageId)
       const updatedSelectedImageSelection = { ...selectedDigitalImage, ['digital_images']: [ ...digitalImageId ] }
       setSelectedDigitalImage(updatedSelectedImageSelection)
     } catch (err) {
       console.log(err)
     }
   }
-
-  console.log('SELECTIONS>>>>', selectedDigitalImage)
 
   const handleSubmit = async event => {
     event.preventDefault()

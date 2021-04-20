@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import ScrapbookImageCard from './ScrapbookImageCard'
 // import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 
 const ScrapbookShow = () => {
@@ -20,6 +21,8 @@ const ScrapbookShow = () => {
     }
     getData()
   },[])
+
+
 
   // const handleChange = async event => {
   //   console.log(event.target.name)
@@ -45,6 +48,8 @@ const ScrapbookShow = () => {
 
   if (!scrapbook) return null
 
+  // console.log(scrapbook)
+
   return (
     <div>
       {/* <form>
@@ -57,10 +62,10 @@ const ScrapbookShow = () => {
           
       </form> */}
       <h2>{scrapbook.name}</h2>
-      <h3>Created by {scrapbook.creator.username}</h3>
+      <h3>by {scrapbook.creator.username}</h3>
       {scrapbook.digital_images.length > 0 ?
         scrapbook.digital_images.map(image => {
-          return <p key={image.id}>{image.catalogue_title}</p>
+          return <ScrapbookImageCard key={image.id} imageInfo={image} />
         })
         :
         <p>No images</p>

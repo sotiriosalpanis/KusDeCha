@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import InstitutionCard from './InstitutionCard'
 
 function InstitutionIndex() {
 
@@ -15,6 +16,7 @@ function InstitutionIndex() {
   },[])
 
   console.log(institutions)
+  
 
   return (
     <div>
@@ -22,8 +24,8 @@ function InstitutionIndex() {
         <div>
           { institutions.map(institution => (
 
-            <Link to={`/institutions/${institution.id}`} key={institution.id} {...institution}>
-              {institution.institution_name}
+            <Link to={`/explore/${institution.institution_name.replace(' ','')}`} key={institution.id} {...institution}>
+              <InstitutionCard props={institution}/>
             </Link>
 
           ))}

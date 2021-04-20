@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 // import { useLocation } from 'react-router-dom'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import AddToScrapbook from './AddToScrapbook'
 import OpenSeaDragonViewer from './OpenSeaDragonViewer'
 
@@ -10,8 +10,8 @@ const ObjectShow = () => {
 
 
   const { id } = useParams()
-  const  { hash } = useLocation()
-  const digitalImageId = hash.replace('#','')
+  // const  { hash } = useLocation()
+  // const digitalImageId = hash.replace('#','')
 
   const [ imageCatalogue, setImageCatalogue ] = useState(null)
 
@@ -25,7 +25,7 @@ const ObjectShow = () => {
 
   if (!imageCatalogue) return null
 
-  const imageInformation = { ...imageCatalogue, digitalId: digitalImageId }
+  const imageInformation = { ...imageCatalogue }
 
   // console.log('New objec:', imageInformation)
 
