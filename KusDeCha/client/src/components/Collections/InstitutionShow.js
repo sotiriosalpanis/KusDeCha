@@ -100,7 +100,7 @@ const InstitutionShow = () => {
         <div>
           {!searchTerm ? institution.results.map(result => {
             return <Link key={result.id}
-              to={`/object/${result.id}`}
+              to={ `/object/${result.id}`}
             >
               <ObjectCard  { ...result } />
             </Link>
