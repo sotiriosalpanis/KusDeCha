@@ -36,10 +36,10 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
     
     const selectedName = scrapbookOptions.filter(scrapbook => {
       if (scrapbook.id === Number(event.target.value)){
-        return scrapbook.name
+        return scrapbook
       }
     })
-    setSelectedDigitalImage({ ...selectedDigitalImage, ['id']: event.target.value, ['name']: selectedName[0].name })
+    setSelectedDigitalImage({ ['digital_images']: [ selectedName[0].digital_images[0].id ] , ['id']: event.target.value, ['name']: selectedName[0].name })
   }
 
   const handleDigitalImageSubmit = async () => {
@@ -49,9 +49,11 @@ const AddToScrapbook = ({ id, digitalId, source }) => {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`,
         },
       })
-      console.log(data)
+      console.log('Previous- in scrapbook already',selectedDigitalImage.digital_images)
+      console.log('Image to add', data.id)
       const digitalImageId = [ ...selectedDigitalImage.digital_images ,data.id]
-      const updatedSelectedImageSelection = { ...selectedDigitalImage, ['digital_images']: digitalImageId }
+      console.log('List afterwards',digitalImageId)
+      const updatedSelectedImageSelection = { ...selectedDigitalImage, ['digital_images']: [ ...digitalImageId ] }
       setSelectedDigitalImage(updatedSelectedImageSelection)
     } catch (err) {
       console.log(err)
