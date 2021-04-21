@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import SearchBar from './Collections/SearchBar'
 
 const Navbar = () => {
   return (
@@ -10,6 +11,9 @@ const Navbar = () => {
             <Link className='navbar-item' to='/explore'>
           Explore
             </Link>
+          </div>
+          <div>
+            <SearchBar />
           </div>
           <div>
             <Link className='navbar-item' to='/scrapbooks'>
