@@ -23,9 +23,12 @@ const ObjectCard = ({ thumbnail, size }) => {
   const image = `${imageURLRoot}/full/${imageWidth},${imageHeight}/0/default.${imageFormat}`
 
   return (
-    <>
-      <img src={image}/>
-    </>
+    <div className='card'>
+      <div className='card-image'>
+        <img src={image}/>
+      </div>
+      
+    </div>
   )
 }
 

@@ -27,46 +27,71 @@ const Register = () => {
 
 
   return (
-    <section>
-      <h3>Register</h3>
+    <section className='section'>
+      <div className='container'>
+        <div className='columns'>
+          <form className='box column is-half is-offset-one-quarter' onSubmit={handleSubmit}>
+            <div>
+              <h3>Register</h3>
+            </div>
+            <div className='field'>
+              <label className='label'>Username</label>
+              <div className='control'>
+                <input
+                  className='input is-small'
+                  placeholder='Username'
+                  name='username'
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className='field'>
+              <label className='label'>Email</label>
+              <div className='control'>
+                <input
+                  className='input is-small'
+                  placeholder='someone@example.com'
+                  name='email'
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className='field'>
+              <label className='label'>Password</label>
+              <div className='control'>
+                <input
+                  className='input is-small'
+                  type='password'
+                  placeholder='Enter your password'
+                  name='password'
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className='field'>
+              <label className='label'>Password confirmation</label>
+              <div className='control'>
+                <input
+                  className='input is-small'
+                  type='password'
+                  placeholder='Confirm your password'
+                  name='password_confirmation'
+                  value={formData.password_confirmation}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className='field'>
+              <button className='button' type='submit'>Register</button>
+            </div>
+          
+          </form>
 
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>Username</label>
-          <input
-            placeholder='Username'
-            name='username'
-            value={formData.username}
-            onChange={handleChange}
-          />
-          <label>Email</label>
-          <input
-            placeholder='someone@example.com'
-            name='email'
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <label>Password</label>
-          <input
-            type='password'
-            placeholder='Enter your password'
-            name='password'
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <label>Password confirmation</label>
-          <input
-            type='password'
-            placeholder='Confirm your password'
-            name='password_confirmation'
-            value={formData.password_confirmation}
-            onChange={handleChange}
-          />
-          <button type='submit'>Register</button>
-        </form>
-
+        </div>
       </div>
-
     </section>
   )
 }

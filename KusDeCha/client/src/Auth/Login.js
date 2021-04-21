@@ -30,27 +30,44 @@ const Login = () => {
 
 
   return (
-    <section>
-      <h3>Login</h3>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>Username</label>
-          <input
-            placeholder='Username'
-            name='username'
-            value={formData.username}
-            onChange={handleChange}
-          />
-          <label>Password</label>
-          <input
-            type='password'
-            placeholder='Enter your password'
-            name='password'
-            value={formData.password}
-            onChange={handleChange}
-          />
-          <button type='submit'>Login</button>
-        </form>
+    <section className='section'>
+      <div className='container'>
+        <div className='columns'>
+          <form className='box column is-half is-offset-one-quarter' onSubmit={handleSubmit}>
+            <div>
+              <h3>Login</h3>
+            </div>
+            <div className='field'>
+              <label className='label'>Username</label>
+              <div className='control'>
+                <input
+                  className='input is-small'
+                  placeholder='Username'
+                  name='username'
+                  value={formData.username}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className='field'>
+              <label className='label'>Password</label>
+              <div className='control'>
+                <input
+                  className='input is-small'
+                  type='password'
+                  placeholder='Enter your password'
+                  name='password'
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className='field'>
+              <button className='button' type='submit'>Login</button>
+            </div>
+          </form>
+        </div>
+        
       </div>
 
     </section>

@@ -3,28 +3,33 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
   return (
-    <div>
-      <div>
-        <Link to='/explore'>
+    <nav className="navbar" role="navigation">
+      <div id='navbarBasicExample' className='navbar-menu'>
+        <div className='navbar-start'>
+          <div>
+            <Link className='navbar-item' to='/explore'>
           Explore
-        </Link>
-      </div>
-      <div>
-        <Link to='/scrapbooks'>
+            </Link>
+          </div>
+          <div>
+            <Link className='navbar-item' to='/scrapbooks'>
           Scrapbooks
-        </Link>
-      </div>
-      <div>
-        <Link to='/login'>
+            </Link>
+          </div>
+          <div>
+            <Link className='navbar-item' to='/login'>
           Login
-        </Link>
-      </div>
-      <div>
-        <Link to='/register'>
+            </Link>
+          </div>
+          <div>
+            <Link className='navbar-item' to='/register'>
           Register
-        </Link>
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
+
   )
 }
 

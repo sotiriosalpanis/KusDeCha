@@ -25,7 +25,7 @@ const InstitutionCard = ( { props } ) => {
   console.log(randomPicture)
 
   return (
-    <div>
+    <div className='box'>
       <h2>{props.institution_name}</h2>
       <hr />
       <p>{props.description}</p>
