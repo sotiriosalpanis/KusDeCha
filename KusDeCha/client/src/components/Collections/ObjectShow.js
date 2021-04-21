@@ -29,7 +29,7 @@ const ObjectShow = () => {
         <div className='box'>
           <div className='columns'>
             <div className='column is-8'>
-              <h2>{imageCatalogue.source.title}</h2>
+              <h2 className='subtitle is-3'>{imageCatalogue.source.title}</h2>
             </div>
             <div className='column is-4'>
               <AddToScrapbook { ...imageCatalogue } />

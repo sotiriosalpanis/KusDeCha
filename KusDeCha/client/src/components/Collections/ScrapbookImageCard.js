@@ -1,7 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+// import { Link } from 'react-router-dom'
 
-const ScrapbookImageCard = ( { imageInfo }) => {
+const ScrapbookImageCard = ( { imageInfo, size }) => {
+
+  // console.log(size)
 
 
   const [ image, setImage ] = useState(null)
@@ -14,19 +17,26 @@ const ScrapbookImageCard = ( { imageInfo }) => {
     getData()
   },[])
 
+
+
   if (!image) return null
 
   const imageURLRoot = image['@id']
-  const imageHeight = image.sizes[2].height
-  const imageWidth = image.sizes[2].width
+  const imageHeight = image.sizes[size].height
+  const imageWidth = image.sizes[size].width
   const imageFormat = image.profile[1].formats
   const imageURL = `${imageURLRoot}/square/${imageWidth},${imageHeight}/0/default.${imageFormat}`
 
+  // to
 
   return (
-    <div>
-      <img src={imageURL} />
-    </div>
+    <section>
+      <div>
+        <img
+          src={imageURL} />
+      </div>
+      
+    </section>
   )
 }
 

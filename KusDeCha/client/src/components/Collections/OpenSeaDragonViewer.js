@@ -24,6 +24,7 @@ const OpenSeaDragonViewer = ( { iiifManifestURL } ) => {
         visibilityRatio: 0.5,
         zoomInButton: 'zoom-in',
         zoomOutButton: 'zoom-out',
+        fullPageButton: 'full-page',
         showNavigator: true,
         tileSources: iiifManifestURL,
       })
@@ -32,9 +33,12 @@ const OpenSeaDragonViewer = ( { iiifManifestURL } ) => {
 
   return (
     <section>
-      <div>
-        <a id='zoom-in' href='#zoom-in' title="Zoom in">Zoom in</a>
-        <a id='zoom-out' href='#zoom-out' title="Zoom in">Zoom out</a>
+      <div className='columns'>
+        <div className='column'>
+          <a className='button' id='full-page' href='#full-page' title="Zoom in">Full page</a>
+          <a className='button' id='zoom-in' href='#zoom-in' title="Zoom in">+</a>
+          <a className='button' id='zoom-out' href='#zoom-out' title="Zoom in">-</a>
+        </div>
       </div>
       <div 
         id="openSeaDragon" 

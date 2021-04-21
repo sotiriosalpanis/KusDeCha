@@ -134,9 +134,11 @@ const AddToScrapbook2 = ( { id,  source } ) => {
             <div className='box column is-half is-offset-one-quarter'>
               <form>
                 <div className='select'>
-                  <select onChange={handleChange}>
+                  <select 
+                    onChange={handleChange}
+                    defaultValue='Choose a scrapbook'
+                  >
                     <option
-                      defaultValue='selected'
                       disabled={true}
                     >Choose a scrapbook</option>
                     {selectScrapbook.map((scrapbook, index) => {
@@ -173,7 +175,6 @@ const AddToScrapbook2 = ( { id,  source } ) => {
               aria-label='close'
               onClick={handleModalClose}
             >
-
             </button>
           </div>
         </div>

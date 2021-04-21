@@ -20,7 +20,7 @@ const InstitutionSearchPreview = ( { searchTerm }) => {
 
   return (
     <div>
-      <h4>Preview results for {searchTerm}</h4>
+      <h4 className='title is-4'>Preview results for {searchTerm}</h4>
       {searchResults.results.map(result => {
         return <ObjectCard key={result.id} {...result} size={2} />
       })}
