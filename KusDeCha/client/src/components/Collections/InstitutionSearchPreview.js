@@ -19,12 +19,17 @@ const InstitutionSearchPreview = ( { searchTerm }) => {
   if (!searchResults) return null
 
   return (
-    <div>
+    <div className='box search-preview'>
       <h4 className='title is-4'>Preview results for {searchTerm}</h4>
-      {searchResults.results.map(result => {
-        return <ObjectCard key={result.id} {...result} size={2} />
-      })}
-      <Link to={`/search#${searchTerm}`}>See full results for {searchTerm} here</Link>
+      <div className='columns is-multiline'>
+        {searchResults.results.map(result => {
+          return <div className='column' key={result.id}> 
+            <ObjectCard  {...result} size={1} />
+          </div>
+        })}
+        
+      </div>
+      <Link to={`/search#${searchTerm}`}>See full results here</Link>
     </div>
   )
 }

@@ -11,7 +11,7 @@ const ScrapbookImageCard = ( { imageInfo, size }) => {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get(`https://iiif.wellcomecollection.org/image/${imageInfo.digital_image_id}`)
+      const { data } = await axios.get(`${imageInfo.iiif_manifest}`)
       setImage(data)
     }
     getData()

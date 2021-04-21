@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
+import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 
 
 import ObjectCard from './ObjectCard'
@@ -17,6 +18,13 @@ const InstitutionShow = ( ) => {
 
   const [searchTerm, setSearchTerm ] = useState('')
   const [searchSet, setSearchSet ] = useState(null)
+  const [ imageArray, setimageArray ] = useState([])
+  const [ imageToPost, setImageToPost ] = useState({})
+  const [ selectScrapbook, setSelectScrapbook ] = useState(null)
+  const [ scrapbookBody, setScrapbookBody ] = useState({})
+
+  const [ disableButton, setdisableButton ] = useState(false)
+
 
   useEffect(() => {
     const getData = async() => {
@@ -33,6 +41,7 @@ const InstitutionShow = ( ) => {
     }
     getData()
   },[searchTerm, pageNumber, pageSize])
+
 
   const handleChange = event => {
     try {
@@ -54,6 +63,102 @@ const InstitutionShow = ( ) => {
     const nextPage = pageNumber - 1
     setPageNumber(nextPage)
   }
+
+  const handleSelect = (event) => {
+    const imageToAdd = institution.results[event.target.value]
+    const imageToAddObject = {
+      origin_institution: 1,
+      digital_image_id: imageToAdd.source.id,
+      catalogue_image_id: imageToAdd.id,
+      catalogue_title: imageToAdd.source.title,
+      work_type: imageToAdd.source.type,
+      iiif_manifest: imageToAdd.thumbnail.url,
+      tags: [],
+    }
+    let updatedResults
+    if (imageToAdd.disabled) {
+      updatedResults = { ...imageToAdd, ['disabled']: false }
+      institution.results[event.target.value] = updatedResults
+    } else {
+      setImageToPost({ ...imageToAddObject })
+      updatedResults = { ...imageToAdd, ['disabled']: true }
+    }
+    institution.results[event.target.value] = updatedResults
+    setdisableButton(!disableButton)
+  }
+
+  const handleSelectSearch = (event) => {
+    const imageToAdd = searchSet.results[event.target.value]
+    const imageToAddObject = {
+      origin_institution: 1,
+      digital_image_id: imageToAdd.source.id,
+      catalogue_image_id: imageToAdd.id,
+      catalogue_title: imageToAdd.source.title,
+      work_type: imageToAdd.source.type,
+      iiif_manifest: imageToAdd.thumbnail.url,
+      tags: [],
+    }
+    let updatedResults
+    if (imageToAdd.disabled) {
+      updatedResults = { ...imageToAdd, ['disabled']: false }
+      institution.results[event.target.value] = updatedResults
+    } else {
+      setImageToPost({ ...imageToAddObject })
+      updatedResults = { ...imageToAdd, ['disabled']: true }
+    }
+    searchSet.results[event.target.value] = updatedResults
+    setdisableButton(!disableButton)
+  }
+
+  useEffect( async() => {
+    try {
+      const { data } = await axios.post('/api/images/', imageToPost, {
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+        },
+      })
+      setimageArray([ ...imageArray, data.id ])
+      console.log(imageArray)
+    } catch (err) {
+      console.log(err.request)
+    }
+    
+  },[imageToPost])
+
+  useEffect(() => {
+    const getData = async() => {
+      const { data } = await axios.get('/api/scrapbooks')
+      setSelectScrapbook(data)
+    }
+    getData()
+  },[])
+
+  const handleScrapbookSelect = event => {
+    if (event.target.value !== 'new') {
+      let existingImages = []
+      if (selectScrapbook[event.target.value].digital_images.length > 0) {
+        existingImages = selectScrapbook[event.target.value].digital_images.map(image => image.id)
+        
+      }
+      const updatedScrapbookBody = { ...selectScrapbook[event.target.value], ['digital_images']: [ ...existingImages, ...imageArray ] }
+      setScrapbookBody(updatedScrapbookBody)
+    }
+  }
+
+  const handleSubmit = async event => {
+    event.preventDefault()
+    try {
+      const response = await axios.put(`/api/scrapbooks/${scrapbookBody.id}/`,scrapbookBody, {
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`,
+        },
+      })
+      console.log('Success',response)
+    } catch (err) {
+      console.log('Scrapbook error',err.response.data)
+    }
+  }
+
 
   if (!institution) return null
 
@@ -114,23 +219,78 @@ const InstitutionShow = ( ) => {
               </select>
             </div>
           </form>
-
-
+          <div>
+            <form>
+              <div className='select'>
+                <select 
+                  onChange={handleScrapbookSelect}
+                  defaultValue='Choose a scrapbook'
+                >
+                  <option
+                    disabled={true}
+                  >Choose a scrapbook</option>
+                  {selectScrapbook.map((scrapbook, index) => {
+                    return <option
+                      key={scrapbook.id}
+                      value={index}
+                    >
+                      {scrapbook.name}
+                    </option>
+                  })}
+                </select>
+              </div>
+            </form>
+            <button
+              className='button'
+              onClick={handleSubmit}
+            >
+              Add to Scrapbook
+            </button>
+          </div>
         </div>
         <div>
 
           <div className='columns is-multiline'>
-            {!searchTerm ? institution.results.map(result => {
-              return <Link key={result.id}
-                to={ `/object/${result.id}`}
+            {!searchTerm ? institution.results.map((result, index )=> {
+              return <div key={result.id}
+                className='relative-container'
               >
-                <ObjectCard  { ...result } size={1}/>
-              </Link>
+                <Link
+                  to={ `/object/${result.id}`}
+                >
+                  <ObjectCard  { ...result } size={1} disabled={result.disabled}/>
+                </Link>
+                
+                <button
+                  className='absolute-container button is-info is-small is-inverted'
+                  value={index}
+                  onClick={handleSelect}
+                >
+                  X
+                </button>
+              </div>
             
             })
               :
-              searchSet.results.map(result => {
-                return <ObjectCard key={result.id} { ...result } size={1} />
+              searchSet.results.map((result, index) => {
+                return <div key={result.id}
+                  className='relative-container'
+                >
+                  <Link
+                    to={ `/object/${result.id}`}
+                  >
+                    <ObjectCard  { ...result } size={1} disabled={result.disabled}/>
+                  </Link>
+                
+                  <button
+                    className='absolute-container button is-info is-small is-inverted'
+                    value={index}
+                    onClick={handleSelectSearch}
+                  >
+                  X
+                  </button>
+                </div>
+            
               })
             }
           </div>

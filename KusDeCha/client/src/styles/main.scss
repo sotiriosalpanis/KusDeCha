@@ -1,3 +1,23 @@
 
 
 @import '~bulma/bulma.sass';
+
+.search-preview{
+  min-height: 100vh;
+}
+
+.absolute-container{
+  position: absolute;
+  top: 10px;
+  left: 15px;
+}
+
+.relative-container{
+  position: relative;
+  text-align: center;
+}
+
+.selected-object{
+  border: 2px white;
+  opacity: 50%;
+}

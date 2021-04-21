@@ -39,41 +39,69 @@ const InstitutionShowSearch = ( ) => {
 
 
   return (
+    <section className='section'>
+      <div className='container'>
+        <h2 className='title'>You searched for {searchTerm}</h2>
+        <h3 className='subtitle'>There are {searchResults.totalResults} results on {searchResults.totalPages} pages</h3>
+        <form>
+          <select onChange={handlePageSize} className='select'>
+            <option value={50}>50</option>
+            <option value={75}>75</option>
+            <option value={100}>100</option>
+          </select>
+        </form>
+        <div>
+          <nav className='pagination is-right' role='navigation' aria-label='pagination'>
+            <a
+              className='pagination-next'
+              onClick={handleNextPage}
+            >+</a>
 
-    <div>
-      <h2>You searched for {searchTerm}</h2>
-      <h3>There are {searchResults.totalResults} results on {searchResults.totalPages} pages</h3>
-      <form>
-        <select onChange={handlePageSize}>
-          <option value={50}>50</option>
-          <option value={75}>75</option>
-          <option value={100}>100</option>
-        </select>
-      </form>
-      <div>
-        <button
-          onClick={handleNextPage}
-        >+</button>
-        <p>{pageNumber} of {searchResults.totalPages}</p>
-        {pageNumber > 1  ?
-          <button
-            onClick={handlePreviousPage}
-          >-</button>
-          :
-          <p></p>
-        }
-        <section>
-          {searchResults.results.map(result => {
-            return <Link key={result.id}
-              to={`/object/${result.id}`}
-            >
-              <ObjectCard { ...result } size={1} />
-            </Link>
-          })}
-        </section>
+            <ul className='pagination-list'>
+              <li>
+                <a className='pagination-link'>Pg {pageNumber}</a>
+              </li>
 
+            </ul>
+
+            {pageNumber > 1  ?
+              <>
+                <a
+                  className='pagination-previous'
+                  onClick={handlePreviousPage}
+                >-</a>
+              </>
+              :
+              <>
+                <a
+                  className='pagination-previous'
+                  disabled
+                >-</a>
+              </>
+            }
+
+          </nav>
+          <section>
+            <div className='columns is-multiline'>
+              {searchResults.results.map(result => {
+                return <div key={result.id}> 
+                  <Link 
+                    to={`/object/${result.id}`}
+                  >
+                    <ObjectCard { ...result } size={1} />
+                  </Link>
+
+                </div>
+
+              })}
+            </div>
+
+          </section>
+
+        </div>
       </div>
-    </div>
+    </section>
+    
   )
 }
 

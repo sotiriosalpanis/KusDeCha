@@ -4,6 +4,7 @@ from django.contrib.postgres.fields import ArrayField
 class DigitalImage(models.Model):
 
     digital_image_id = models.CharField(max_length=50, blank=True)
+    iiif_manifest = models.URLField(blank=True)
     catalogue_image_id = models.CharField(max_length=50)
     tags = ArrayField(models.CharField(max_length=50), blank=True)
     catalogue_title = models.TextField(blank=True)

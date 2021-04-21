@@ -5,7 +5,7 @@ import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 import CreateScrapbook from './CreateScrapbook'
 import { Link } from 'react-router-dom'
 
-const AddToScrapbook2 = ( { id,  source } ) => {
+const AddToScrapbook = ( { id,  source, thumbnail } ) => {
 
   const [ digitalImage, selectedDigitalImage ] = useState([])
   const [ selectScrapbook, setSelectScrapbook ] = useState(null)
@@ -17,8 +17,12 @@ const AddToScrapbook2 = ( { id,  source } ) => {
     catalogue_image_id: id,
     catalogue_title: source.title,
     work_type: source.type,
+    iiif_manifest: thumbnail.url,
     tags: [],
   })
+
+  console.log('SOURCE',thumbnail.url)
+
 
 
   const handleImageSelection = async() => {
@@ -29,16 +33,15 @@ const AddToScrapbook2 = ( { id,  source } ) => {
             Authorization: `Bearer ${getTokenFromLocalStorage()}`,
           },
         })
-        const digitalImageArray = [ ...digitalImage, data.id ]
+        const digitalImageArray =  data 
         selectedDigitalImage(digitalImageArray)
-        setActiveModal('is-active')
       } catch (err) {
         console.log(err.response)
       }
     } else {
       console.log('Already exists- skipped', digitalImage)
-      setActiveModal('is-active')
     }
+    setActiveModal('is-active')
   }
 
   useEffect(() => {
@@ -55,7 +58,12 @@ const AddToScrapbook2 = ( { id,  source } ) => {
       const existingDigitalImage = data.filter(image => {
         return image.catalogue_image_id === id
       })
-      selectedDigitalImage( ...existingDigitalImage )
+      if (existingDigitalImage.length === 0) {
+        selectedDigitalImage(null)
+      } else {
+        selectedDigitalImage( ...existingDigitalImage )
+      }
+
     }
     getData()
   },[])
@@ -63,12 +71,12 @@ const AddToScrapbook2 = ( { id,  source } ) => {
   if (!selectScrapbook) return null
 
   const handleChange = event => {
-    console.log(selectScrapbook[event.target.value])
     if (event.target.value !== 'new') {
       setNewScrapbook(false)
       let existingImages = []
       if (selectScrapbook[event.target.value].digital_images.length > 0) {
         existingImages = selectScrapbook[event.target.value].digital_images.map(image => image.id)
+        
       }
       const updatedScrapbookBody = { ...selectScrapbook[event.target.value], ['digital_images']: [...existingImages, digitalImage.id ] }
       setScrapbookBody(updatedScrapbookBody)
@@ -183,4 +191,4 @@ const AddToScrapbook2 = ( { id,  source } ) => {
   )
 }
 
-export default AddToScrapbook2
+export default AddToScrapbook

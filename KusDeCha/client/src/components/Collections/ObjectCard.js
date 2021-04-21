@@ -2,7 +2,9 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 // import { Link } from 'react-router-dom'
 
-const ObjectCard = ({ thumbnail, size }) => {
+const ObjectCard = ({ thumbnail, size, disabled }) => {
+
+  // console.log(!disabled)
 
   const [ objectImage, setObjectImage ] = useState(null)
 
@@ -24,8 +26,18 @@ const ObjectCard = ({ thumbnail, size }) => {
 
   return (
     <div className='card'>
-      <div className='card-image'>
-        <img src={image}/>
+      <div className='card-image'
+      >
+        {!disabled ?
+          <img src={image}
+          />
+          :
+          <img src={image}
+            className='selected-object'
+          />
+
+        }
+
       </div>
       
     </div>
