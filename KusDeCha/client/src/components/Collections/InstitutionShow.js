@@ -5,10 +5,10 @@ import { Link } from 'react-router-dom'
 
 import ObjectCard from './ObjectCard'
 
-const InstitutionShow = () => {
+const InstitutionShow = ( ) => {
+
 
   const apiRoot = 'https://api.wellcomecollection.org/catalogue/v2/'
-  // const pageSize = 50
 
   const [ institution, setInstitution ] = useState(null)
 
@@ -59,61 +59,83 @@ const InstitutionShow = () => {
 
   
   return (
-    <div>
-      <div>
-        {!searchTerm ? <p>{institution.totalResults}</p>
-          : <p>{searchSet.totalResults}</p>
-        }
-        <form>
-          <input
-            onChange={handleChange}
-            value={searchTerm}
-            placeholder='Search'
-          >
-          </input>
-          <select onChange={handlePageSize}>
-            <option value={50}>50</option>
-            <option value={75}>75</option>
-            <option value={100}>100</option>
-          </select>
-        </form>
-      </div>
-      <div>
-        <div>
-          <button
+    <div className='section'>
+      <div className='container'>
+        <nav className='pagination is-right' role='navigation' aria-label='pagination'>
+          <a
+            className='pagination-next'
             onClick={handleNextPage}
-          >+</button>
-          {!searchTerm ? 
-            <p>{pageNumber} of {institution.totalPages}</p>
-            :
-            <p>{pageNumber} of {searchSet.totalPages}</p>
-          }
+          >+</a>
+
+          <ul className='pagination-list'>
+            <li>
+              <a className='pagination-link'>Pg {pageNumber}</a>
+            </li>
+
+          </ul>
+
           {pageNumber > 1  ?
-            <button
-              onClick={handlePreviousPage}
-            >-</button>
+            <>
+              <a
+                className='pagination-previous'
+                onClick={handlePreviousPage}
+              >-</a>
+            </>
             :
-            <p></p>
+            <>
+              <a
+                className='pagination-previous'
+                disabled
+              >-</a>
+            </>
           }
+
+        </nav>
+      
+        <div className='box'>
+          <h2>Explore the Wellcome Collections Digitised Content</h2>
+          {!searchTerm ? <p>Browse {institution.totalResults} images</p>
+            : <p>&apos;{searchTerm}&apos; returned {searchSet.totalResults}</p>
+          }
+          <form className='columns is-8'>
+            <div className='control column'>
+              <input
+                className='input'
+                onChange={handleChange}
+                value={searchTerm}
+                placeholder='Search'
+              />
+            </div>
+            <div className='control column is-2 is-offset-2'>
+              <select onChange={handlePageSize} className='select'>
+                <option value={50}>50</option>
+                <option value={75}>75</option>
+                <option value={100}>100</option>
+              </select>
+            </div>
+          </form>
+
 
         </div>
         <div>
-          {!searchTerm ? institution.results.map(result => {
-            return <Link key={result.id}
-              to={ `/object/${result.id}`}
-            >
-              <ObjectCard  { ...result } size={1}/>
-            </Link>
-            
-          })
-            :
-            searchSet.results.map(result => {
-              return <ObjectCard key={result.id} { ...result } size={1} />
-            })
-          }
-        </div>
-      </div>
 
+          <div className='columns is-multiline'>
+            {!searchTerm ? institution.results.map(result => {
+              return <Link key={result.id}
+                to={ `/object/${result.id}`}
+              >
+                <ObjectCard  { ...result } size={1}/>
+              </Link>
+            
+            })
+              :
+              searchSet.results.map(result => {
+                return <ObjectCard key={result.id} { ...result } size={1} />
+              })
+            }
+          </div>
+        </div>
+      </div>    
     </div>
   )
 }

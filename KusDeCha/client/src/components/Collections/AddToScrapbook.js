@@ -10,6 +10,7 @@ const AddToScrapbook2 = ( { id,  source } ) => {
   const [ digitalImage, selectedDigitalImage ] = useState([])
   const [ selectScrapbook, setSelectScrapbook ] = useState(null)
   const [ newScrapbook, setNewScrapbook ] = useState(false)
+  const [ activeModal, setActiveModal ] = useState(null)
   const [ scrapbookBody, setScrapbookBody ] = useState({
     origin_institution: 1,
     digital_image_id: source.id,
@@ -30,11 +31,13 @@ const AddToScrapbook2 = ( { id,  source } ) => {
         })
         const digitalImageArray = [ ...digitalImage, data.id ]
         selectedDigitalImage(digitalImageArray)
+        setActiveModal('is-active')
       } catch (err) {
         console.log(err.response)
       }
     } else {
       console.log('Already exists- skipped', digitalImage)
+      setActiveModal('is-active')
     }
   }
 
@@ -84,9 +87,15 @@ const AddToScrapbook2 = ( { id,  source } ) => {
         },
       })
       console.log('Success',response)
+      setActiveModal(null)
     } catch (err) {
       console.log('Scrapbook error',err.response.data)
+      setActiveModal(null)
     }
+  }
+
+  const handleModalClose = () => {
+    setActiveModal(null)
   }
 
   const scrapbooksAlreadyAddedTo = selectScrapbook.filter(scrapbook => {
@@ -98,11 +107,11 @@ const AddToScrapbook2 = ( { id,  source } ) => {
 
 
   return (
-    <div>
-      <div>
+    <div className='container'>
+      <div className='columns'>
         {scrapbooksAlreadyAddedTo.length !== 0 ?
           <>
-            <p>Already added to: </p>
+            <p className='column'>Already added to: </p>
             { scrapbooksAlreadyAddedTo.map(scrapbook => {
               return <Link to={`/scrapbooks/${scrapbook.id}`} key={scrapbook.id}>
                 <p >{scrapbook.name}</p>
@@ -110,44 +119,64 @@ const AddToScrapbook2 = ( { id,  source } ) => {
             })}
           </>
           :
-          <p>Not added to any scrapbooks yet</p>
+          <p>Not part of any scrapbooks</p>
         }
       </div>
-      <button
+      <button className='button'
         onClick={handleImageSelection}
       >
-        Add to scrapbook
+        +
       </button>
-      <div>
-        <form>
-          <select onChange={handleChange}>
-            <option
-              disabled={true}
-            >Choose a scrapbook</option>
-            {selectScrapbook.map((scrapbook, index) => {
-              return <option
-                key={scrapbook.id}
-                value={index}
-              >
-                {scrapbook.name}
-              </option>
-            })}
-            <option
-              value='new'
-            >New</option>
-          </select>
-          
-          <button
-            onClick={handleSubmit}
-          >+</button>
-        </form>
-        {newScrapbook ?
-          <div>
-            <CreateScrapbook />
+      <div className={`modal ${activeModal}`}>
+        <div className='modal-background'></div>
+        <div className='modal-card'>
+          <div className='columns'>
+            <div className='box column is-half is-offset-one-quarter'>
+              <form>
+                <div className='select'>
+                  <select onChange={handleChange}>
+                    <option
+                      defaultValue='selected'
+                      disabled={true}
+                    >Choose a scrapbook</option>
+                    {selectScrapbook.map((scrapbook, index) => {
+                      return <option
+                        key={scrapbook.id}
+                        value={index}
+                      >
+                        {scrapbook.name}
+                      </option>
+                    })}
+                    <option
+                      value='new'
+                    >New</option>
+                  </select>
+                </div>
+              </form>
+              {newScrapbook ?
+                <div>
+                  <CreateScrapbook />
+                </div>
+                :
+                <p></p>
+              }
+              <div className='field'>
+                <button
+                  className='button'
+                  onClick={handleSubmit}
+                >+</button>
+              </div>
+            </div>
+            
+            <button 
+              className='modal-close is-large' 
+              aria-label='close'
+              onClick={handleModalClose}
+            >
+
+            </button>
           </div>
-          :
-          <p></p>
-        }
+        </div>
       </div>
     </div>
   )

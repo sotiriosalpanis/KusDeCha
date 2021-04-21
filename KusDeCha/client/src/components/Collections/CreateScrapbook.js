@@ -37,19 +37,27 @@ const CreateScrapbook = () => {
 
 
   return (
-    <div>
-      <h3>Create a Scrapbook</h3>
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <div className='field'>
         <input
+          className='input'
           placeholder='Give your Scrapbook a name'
           name='name'
           value={formData.name}
           onChange={handleChange}
         >
         </input>
-        <button type='submit'>+</button>
-      </form>
-    </div>
+      </div>
+     
+      <div className='field'>
+        <button 
+          type='submit'
+          className='button'
+        >Create new scrapbook
+        </button>
+      </div>
+    </form>
+
   )
 }
 

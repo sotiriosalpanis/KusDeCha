@@ -24,16 +24,27 @@ const ObjectShow = () => {
 
 
   return (
-    <div>
-      <h2>{imageCatalogue.source.title}</h2>
-      <div>
-        <AddToScrapbook { ...imageCatalogue } />
-      </div>
-      <div>
-        <OpenSeaDragonViewer iiifManifestURL={imageCatalogue.thumbnail.url}/>
-      </div>
+    <section className='section'>
+      <div className='container'>
+        <div className='box'>
+          <div className='columns'>
+            <div className='column is-8'>
+              <h2>{imageCatalogue.source.title}</h2>
+            </div>
+            <div className='column is-4'>
+              <AddToScrapbook { ...imageCatalogue } />
+            </div>
+          </div>
+          
+        </div>
+
+        <div className='box'>
+          <OpenSeaDragonViewer iiifManifestURL={imageCatalogue.thumbnail.url}/>
+        </div>
       
-    </div>
+      </div>
+    </section>
+    
     
   )
 }

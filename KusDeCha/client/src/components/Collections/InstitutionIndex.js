@@ -25,7 +25,7 @@ function InstitutionIndex() {
         <div className="column is three-fifths is-offset-one-fifth">
           { institutions.map(institution => (
 
-            <Link to={`/explore/${institution.institution_name.replace(' ','')}`} key={institution.id} {...institution}>
+            <Link to={`/explore/${institution.institution_name.replace(' ','')}`} key={institution.id}>
               <InstitutionCard props={institution}/>
             </Link>
 
