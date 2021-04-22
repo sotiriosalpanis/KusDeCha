@@ -1,4 +1,12 @@
+$title-color: rgb(230, 254, 255);
+$subtitle-color: rgb(20, 13, 26);
+$family-primary: 'Questrial', sans-serif;
+$family-secondary: 'Roboto', sans-serif;
 
+// $background: black;
+// $scheme-main: red;
+
+// font-family: 'Roboto', sans-serif;
 
 @import '~bulma/bulma.sass';
 
@@ -20,4 +28,62 @@
 .selected-object{
   border: 2px white;
   opacity: 50%;
+}
+
+.hero-image {
+  background-image: url('https://iiif.wellcomecollection.org/image/B0010779/full/1024,527/0/default.jpg');
+  background-size: cover;
+  color: white;
+}
+
+
+// 
+#home {
+margin: 0;
+overflow: hidden;
+}
+
+.background {
+width: 100vw;
+height: 100vh;
+background:white;
+}
+
+$particleSize: 7vmin;
+$animationDuration: 6s;
+$amount: 20;
+.background span {
+width: $particleSize;
+height: $particleSize;
+border-radius: $particleSize;
+backface-visibility: hidden;
+position: absolute;
+animation-name: move;
+animation-duration: $animationDuration;
+animation-timing-function: linear;
+animation-iteration-count: infinite;
+$colors: (
+  #7768b1,
+  #ff9ab8,
+  #b4e0f5
+);
+@for $i from 1 through $amount {
+  &:nth-child(#{$i}) {
+    color: nth($colors, random(length($colors)));
+    top: random(100) * 1%;
+    left: random(100) * 1%;
+    animation-duration: (random($animationDuration * 10) / 10) * 1s + 10s;
+    animation-delay: random(($animationDuration + 10s) * 10) / 10 * -1s;
+    transform-origin: (random(50) - 25) * 1vw (random(50) - 25) * 1vh;
+    $blurRadius: (random() + 0.5) * $particleSize * 0.5;
+    $x: if(random() > 0.5, -1, 1);
+    box-shadow: ($particleSize * 2 * $x) 0 $blurRadius currentColor;
+  }
+}
+}
+
+@keyframes move {
+100% {
+  transform: translate3d(0, 0, 1px) rotate(360deg);
+}
 }

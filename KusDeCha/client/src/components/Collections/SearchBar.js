@@ -13,7 +13,6 @@ const SearchBar = () => {
   }
 
   const handleModal = () => {
-    console.log('Click')
     setActiveModal(null)
   }
 
