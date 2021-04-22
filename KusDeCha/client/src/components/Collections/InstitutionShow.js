@@ -162,45 +162,42 @@ const InstitutionShow = ( ) => {
 
   if (!institution) return null
 
+  console.log('$$$$$$',!imageToPost)
+
   
   return (
     <div className='section'>
       <div className='container'>
-        <nav className='pagination is-right' role='navigation' aria-label='pagination'>
-          <a
-            className='pagination-next'
-            onClick={handleNextPage}
-          >+</a>
-
-          <ul className='pagination-list'>
-            <li>
-              <a className='pagination-link'>Pg {pageNumber}</a>
-            </li>
-
-          </ul>
-
-          {pageNumber > 1  ?
-            <>
-              <a
-                className='pagination-previous'
-                onClick={handlePreviousPage}
-              >-</a>
-            </>
-            :
-            <>
-              <a
-                className='pagination-previous'
-                disabled
-              >-</a>
-            </>
-          }
-
-        </nav>
-      
-        <div className='box'>
-          <h2>Explore the Wellcome Collections Digitised Content</h2>
-          {!searchTerm ? <p>Browse {institution.totalResults} images</p>
-            : <p>&apos;{searchTerm}&apos; returned {searchSet.totalResults}</p>
+        <div className='box sticky-header'>
+          <nav className='pagination is-right' role='navigation' aria-label='pagination'>
+            <a
+              className='pagination-next'
+              onClick={handleNextPage}
+            >+</a>
+            <ul className='pagination-list'>
+              <li>
+                <a className='pagination-link'>Pg {pageNumber}</a>
+              </li>
+            </ul>
+            {pageNumber > 1  ?
+              <>
+                <a
+                  className='pagination-previous'
+                  onClick={handlePreviousPage}
+                >-</a>
+              </>
+              :
+              <>
+                <a
+                  className='pagination-previous'
+                  disabled
+                >-</a>
+              </>
+            }
+          </nav>
+          <h2 className='subtitle is-2'>Explore the Wellcome Collection</h2>
+          {!searchTerm ? <p className='subtitle is-5'>Browse {institution.totalResults} images</p>
+            : <p className='subtitle is-5'>&apos;{searchTerm}&apos; returned {searchSet.totalResults}</p>
           }
           <form className='columns is-8'>
             <div className='control column'>
@@ -219,57 +216,59 @@ const InstitutionShow = ( ) => {
               </select>
             </div>
           </form>
-          <div>
-            <form>
-              <div className='select'>
-                <select 
-                  onChange={handleScrapbookSelect}
-                  defaultValue='Choose a scrapbook'
-                >
-                  <option
-                    disabled={true}
-                  >Choose a scrapbook</option>
-                  {selectScrapbook.map((scrapbook, index) => {
-                    return <option
-                      key={scrapbook.id}
-                      value={index}
+          
+          { imageArray.length > 0 &&
+              <div>
+                <form>
+                  <div className='select'>
+                    <select 
+                      onChange={handleScrapbookSelect}
+                      defaultValue='Choose a scrapbook'
                     >
-                      {scrapbook.name}
-                    </option>
-                  })}
-                </select>
+                      <option
+                        disabled={true}
+                      >Choose a scrapbook</option>
+                      {selectScrapbook.map((scrapbook, index) => {
+                        return <option
+                          key={scrapbook.id}
+                          value={index}
+                        >
+                          {scrapbook.name}
+                        </option>
+                      })}
+                    </select>
+                  </div>
+                </form>
+                <button
+                  className='button'
+                  onClick={handleSubmit}
+                >
+              Add
+                </button>
               </div>
-            </form>
-            <button
-              className='button'
-              onClick={handleSubmit}
-            >
-              Add to Scrapbook
-            </button>
-          </div>
+          }
+            
         </div>
         <div>
-
-          <div className='columns is-multiline'>
+          <div className='columns is-multiline results-page'>
             {!searchTerm ? institution.results.map((result, index )=> {
               return <div key={result.id}
-                className='relative-container'
+                className='relative-container object'
               >
                 <Link
                   to={ `/object/${result.id}`}
                 >
                   <ObjectCard  { ...result } size={1} disabled={result.disabled}/>
                 </Link>
-                
                 <button
-                  className='absolute-container button is-info is-small is-inverted'
+                  className='absolute-container button is-info is-small is-inverted is-rounded'
                   value={index}
                   onClick={handleSelect}
                 >
                   X
                 </button>
               </div>
-            
+
             })
               :
               searchSet.results.map((result, index) => {
@@ -283,7 +282,7 @@ const InstitutionShow = ( ) => {
                   </Link>
                 
                   <button
-                    className='absolute-container button is-info is-small is-inverted'
+                    className='absolute-container button is-info is-small is-inverted is-rounded'
                     value={index}
                     onClick={handleSelectSearch}
                   >

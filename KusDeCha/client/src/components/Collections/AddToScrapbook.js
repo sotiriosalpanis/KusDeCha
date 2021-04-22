@@ -115,13 +115,15 @@ const AddToScrapbook = ( { id,  source, thumbnail } ) => {
 
 
   return (
-    <div className='container'>
+    <div className='container box'>
       <div className='columns'>
         {scrapbooksAlreadyAddedTo.length !== 0 ?
           <>
-            <p className='column'>Already added to: </p>
+            <p className='column subtitle is-5'>Scrapbooks </p>
             { scrapbooksAlreadyAddedTo.map(scrapbook => {
-              return <Link to={`/scrapbooks/${scrapbook.id}`} key={scrapbook.id}>
+              return <Link to={`/scrapbooks/${scrapbook.id}`} 
+                className='box'
+                key={scrapbook.id}>
                 <p >{scrapbook.name}</p>
               </Link>
             })}

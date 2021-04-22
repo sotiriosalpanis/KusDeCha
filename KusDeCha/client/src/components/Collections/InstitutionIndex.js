@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import InstitutionCard from './InstitutionCard'
-// import '../../images/hero'
 
 function InstitutionIndex() {
 
@@ -21,7 +20,7 @@ function InstitutionIndex() {
 
   return (
     <div className='section home'>
-      <div className='columns is-vcentered'>
+      <div className='level explore-page is-vcentered'>
         { institutions && 
         <div className="column is-three-fifths is-offset-one-fifth">
           { institutions.map(institution => (

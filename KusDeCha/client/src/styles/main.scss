@@ -3,15 +3,24 @@ $subtitle-color: rgb(20, 13, 26);
 $family-primary: 'Questrial', sans-serif;
 $family-secondary: 'Roboto', sans-serif;
 
-// $background: black;
-// $scheme-main: red;
+$accent-color-institution-opaque:#7768b177;
+$accent-color-institution:#7768b1;
+$accent-color-scrapbook: #ff9ab8;
+$accent-color-auth: #b4e0f5;
 
-// font-family: 'Roboto', sans-serif;
 
 @import '~bulma/bulma.sass';
 
 .search-preview{
   min-height: 100vh;
+}
+
+.sticky-header{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 50px;
+  z-index:9999;
+  background-color: rgba(255, 255, 255, 0.493);
 }
 
 .absolute-container{
@@ -23,11 +32,13 @@ $family-secondary: 'Roboto', sans-serif;
 .relative-container{
   position: relative;
   text-align: center;
+  margin: 10px;
+  align-content: center;
 }
 
 .selected-object{
-  border: 2px white;
-  opacity: 50%;
+  border: 2px solid $accent-color-institution;
+  opacity: 85%;
 }
 
 .hero-image {
@@ -36,16 +47,24 @@ $family-secondary: 'Roboto', sans-serif;
   color: white;
 }
 
+
 .auth-form {
   margin-top: 70px;
 }
 
+.explore-page {
+  margin-top: 10%;
+}
 
-// 
-// #home {
-// margin: 0;
-// overflow: hidden;
-// }
+.section {
+  margin: 15px; 
+}
+
+.results-page {
+  margin: 10px auto;
+}
+
+
 
 .home {
 margin: 0;
