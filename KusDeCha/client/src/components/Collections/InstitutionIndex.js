@@ -20,7 +20,7 @@ function InstitutionIndex() {
   
 
   return (
-    <div className='section' id='home'>
+    <div className='section home'>
       <div className='columns is-vcentered'>
         { institutions && 
         <div className="column is-three-fifths is-offset-one-fifth">

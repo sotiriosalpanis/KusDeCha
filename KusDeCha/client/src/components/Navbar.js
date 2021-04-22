@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import SearchBar from './Collections/SearchBar'
 import { userIsAuthenticated } from '../Auth/helpers/auth'
 import axios from 'axios'
@@ -8,11 +8,17 @@ const Navbar = () => {
 
   const [ institutions, setInstitutions ] = useState(null)
   const [dropdown, setDropdown ] = useState(false)
+  const history = useHistory()
 
   const handleLogout = () => {
     window.localStorage.removeItem('token')
     history.push('/')
   }
+
+  const location = useLocation()
+  useEffect(() => {
+    // re-render Navbar when url changes
+  }, [location.pathname])
 
 
 
@@ -71,18 +77,10 @@ const Navbar = () => {
                   >
                     {institution.institution_name}
                   </Link>
-      
                 })}
               </div>
             </div>  
           }
-          <div 
-            className='navbar-item has-dropdown is-active'
-            // onMouseEnter={handleDropdown}  
-          >
-          </div>
-          
-
         </div>
         <div className='navbar-end'>
           <div className='navbar-item'>
@@ -93,18 +91,25 @@ const Navbar = () => {
           Scrapbooks
             </Link>
           </div>
-          <div>
-            <Link className='navbar-item' to='/login'>
-          Login
-            </Link>
-          </div>
-          <div>
-            <Link className='navbar-item' to='/register'>
-          Register
-            </Link>
-          </div>
+          { !userIsAuthenticated() &&
+          <>
+            <div>
+              <Link className='navbar-item' to='/login'>
+                Login
+              </Link>
+            </div>
+            <div>
+              <Link className='navbar-item' to='/register'>
+                Register
+              </Link>
+            </div>
+          </>
+          }
+
           { userIsAuthenticated() &&
-            <Link to='/explore' onClick={handleLogout} className="navbar-item">Log out</Link>
+            <div>
+              <Link to='/explore' onClick={handleLogout} className="navbar-item">Log out</Link>
+            </div>
           }
         </div>
           

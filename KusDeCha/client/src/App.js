@@ -15,7 +15,7 @@ import InstitutionShowSearch from './components/Collections/InstitutionShowSearc
 const App = () => {
 
   return (
-    <body className='has-navbar-fixed-top'>
+    <div className='has-navbar-fixed-top'>
       <BrowserRouter>
         <Navbar />
         <Switch>
@@ -45,7 +45,7 @@ const App = () => {
           </Route>
         </Switch>
       </BrowserRouter>
-    </body>
+    </div>
   )
 }
 

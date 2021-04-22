@@ -21,8 +21,7 @@ const Login = () => {
     try {
       const response = await axios.post('/api/auth/login/',formData)
       window.localStorage.setItem('token', response.data.token )
-      history.push('/institutions')
-      console.log(response)
+      history.push('/explore')
     } catch (err) {
       console.log(err.response.data.errors)
     }
@@ -30,18 +29,18 @@ const Login = () => {
 
 
   return (
-    <section className='section'>
+    <section className='section home'>
       <div className='container'>
         <div className='columns'>
-          <form className='box column is-half is-offset-one-quarter' onSubmit={handleSubmit}>
+          <form className='box column is-half is-offset-one-quarter auth-form' onSubmit={handleSubmit}>
             <div>
-              <h3>Login</h3>
+              <h3 className='subtitle'>Login</h3>
             </div>
             <div className='field'>
               <label className='label'>Username</label>
               <div className='control'>
                 <input
-                  className='input is-small'
+                  className='input is-medium'
                   placeholder='Username'
                   name='username'
                   value={formData.username}
@@ -53,7 +52,7 @@ const Login = () => {
               <label className='label'>Password</label>
               <div className='control'>
                 <input
-                  className='input is-small'
+                  className='input is-medium'
                   type='password'
                   placeholder='Enter your password'
                   name='password'
@@ -68,6 +67,28 @@ const Login = () => {
           </form>
         </div>
         
+      </div>
+      <div className="background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
 
     </section>
