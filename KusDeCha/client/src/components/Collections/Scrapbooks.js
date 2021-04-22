@@ -37,16 +37,16 @@ const Scrapbooks = () => {
   if (!scrapbooks) return null
 
   return (
-    <section className='section'>
+    <section className='section scrapbooks'>
       <div className='container'>
-        <h3 className='title'>Scrapbooks</h3>
+        <h3 className='subtitle is-2'>Scrapbooks</h3>
         <div className='box'>
           <CreateScrapbook />
         </div>
         <div className='columns is-multiline'>
           { scrapbooks.map(scrapbook => {
             return <div key={scrapbook.id}>
-              <div className='box column'>
+              <div className='box column relative-container'>
                 <h4 className='subtitle is-4'>{scrapbook.name}</h4>
                 <p className='subtitle is-6'>Created by: {scrapbook.creator.username}</p>
                 { scrapbook.digital_images.length > 0 ?
@@ -59,7 +59,11 @@ const Scrapbooks = () => {
                       <div className='modal-background'></div>
                       <div className='modal-card'>
                         <p className='subtitle is-4'>{modalScrapbook.name}</p>
+                        <Link to={`/scrapbooks/${modalScrapbook.id}`}>
+                          <button className='button'>Go to {modalScrapbook.name}</button>
+                        </Link>
                         <div className='columns is-multiline'>
+
                           {modalScrapbook.digital_images.map(image => {
                             return <div key={image.id}>
                               <div className='column'>
@@ -75,11 +79,6 @@ const Scrapbooks = () => {
 
                           }
                         </div>
-                        <Link to={`/scrapbooks/${modalScrapbook.id}`}>
-                          <button className='button'>Go to {modalScrapbook.name}</button>
-                        </Link>
-                  
-
                         <button 
                           className='modal-close is-large' 
                           aria-label='close'

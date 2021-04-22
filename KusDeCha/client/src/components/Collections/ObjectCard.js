@@ -30,10 +30,11 @@ const ObjectCard = ({ thumbnail, size, disabled }) => {
       >
         {!disabled ?
           <img src={image}
+            className='preview'
           />
           :
           <img src={image}
-            className='selected-object'
+            className='selected-object preview'
           />
 
         }

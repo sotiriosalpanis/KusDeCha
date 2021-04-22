@@ -21,7 +21,6 @@ const AddToScrapbook = ( { id,  source, thumbnail } ) => {
     tags: [],
   })
 
-  console.log('SOURCE',thumbnail.url)
 
 
 
@@ -50,7 +49,7 @@ const AddToScrapbook = ( { id,  source, thumbnail } ) => {
       setSelectScrapbook(data)
     }
     getData()
-  },[])
+  },[activeModal])
   
   useEffect(() => {
     const getData = async() => {
@@ -122,9 +121,9 @@ const AddToScrapbook = ( { id,  source, thumbnail } ) => {
             <p className='column subtitle is-5'>Scrapbooks </p>
             { scrapbooksAlreadyAddedTo.map(scrapbook => {
               return <Link to={`/scrapbooks/${scrapbook.id}`} 
-                className='box'
+                className='box scrapbook'
                 key={scrapbook.id}>
-                <p >{scrapbook.name}</p>
+                <p className='subtitle is-6'>{scrapbook.name}</p>
               </Link>
             })}
           </>
@@ -141,7 +140,8 @@ const AddToScrapbook = ( { id,  source, thumbnail } ) => {
         <div className='modal-background'></div>
         <div className='modal-card'>
           <div className='columns'>
-            <div className='box column is-half is-offset-one-quarter'>
+            <div className='box column is-half is-offset-one-quarter popup'>
+              <p className='subtitle is-4'>Add image to a scrapbook</p>
               <form>
                 <div className='select'>
                   <select 

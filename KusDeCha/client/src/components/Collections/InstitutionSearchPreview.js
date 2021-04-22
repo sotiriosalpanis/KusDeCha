@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 const InstitutionSearchPreview = ( { searchTerm }) => {
 
+
   const apiRoot = 'https://api.wellcomecollection.org/catalogue/v2/'
   const [ searchResults, setSearchResults ] = useState(null)
 
@@ -20,11 +21,11 @@ const InstitutionSearchPreview = ( { searchTerm }) => {
 
   return (
     <div className='box search-preview'>
-      <h4 className='title is-4'>Preview results for {searchTerm}</h4>
+      <h4 className='subtitle is-3'>Preview results for {searchTerm}</h4>
       <div className='columns is-multiline'>
         {searchResults.results.map(result => {
           return <div className='column' key={result.id}> 
-            <ObjectCard  {...result} size={1} />
+            <ObjectCard  {...result} size={2} />
           </div>
         })}
         

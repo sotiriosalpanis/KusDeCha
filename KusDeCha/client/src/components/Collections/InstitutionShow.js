@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 
 
@@ -10,6 +10,7 @@ const InstitutionShow = ( ) => {
 
 
   const apiRoot = 'https://api.wellcomecollection.org/catalogue/v2/'
+  const history = useHistory()
 
   const [ institution, setInstitution ] = useState(null)
 
@@ -154,6 +155,7 @@ const InstitutionShow = ( ) => {
         },
       })
       console.log('Success',response)
+      history.push(`/scrapbooks/${response.data.id}`)
     } catch (err) {
       console.log('Scrapbook error',err.response.data)
     }
@@ -162,11 +164,9 @@ const InstitutionShow = ( ) => {
 
   if (!institution) return null
 
-  console.log('$$$$$$',!imageToPost)
-
   
   return (
-    <div className='section'>
+    <div className='section institution'>
       <div className='container'>
         <div className='box sticky-header'>
           <nav className='pagination is-right' role='navigation' aria-label='pagination'>
@@ -240,7 +240,7 @@ const InstitutionShow = ( ) => {
                   </div>
                 </form>
                 <button
-                  className='button'
+                  className='button create-scrapbook'
                   onClick={handleSubmit}
                 >
               Add

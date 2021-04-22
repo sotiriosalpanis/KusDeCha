@@ -31,7 +31,6 @@ const Navbar = () => {
   },[])
 
   if (!institutions) return null
-  console.log(institutions)
 
   return (
     <nav className="navbar is-transparent is-fixed-top" role="navigation">
@@ -51,7 +50,7 @@ const Navbar = () => {
                   return <Link 
                     key={institution.id} 
                     className='navbar-item'
-                    to={`explore/${institution.institution_name.replace(' ','')}`}
+                    to={`/explore/${institution.institution_name.replace(' ','')}`}
                   >
                     {institution.institution_name}
                   </Link>
@@ -73,7 +72,7 @@ const Navbar = () => {
                   return <Link 
                     key={institution.id} 
                     className='navbar-item'
-                    to={`explore/${institution.institution_name.replace(' ','')}`}
+                    to={`/explore/${institution.institution_name.replace(' ','')}`}
                   >
                     {institution.institution_name}
                   </Link>

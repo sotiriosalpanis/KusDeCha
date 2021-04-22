@@ -3,10 +3,12 @@ $subtitle-color: rgb(20, 13, 26);
 $family-primary: 'Questrial', sans-serif;
 $family-secondary: 'Roboto', sans-serif;
 
-$accent-color-institution-opaque:#7768b177;
+$accent-color-institution-subtle:#7768b138;
 $accent-color-institution:#7768b1;
-$accent-color-scrapbook: #ff9ab8;
-$accent-color-auth: #b4e0f5;
+$accent-color-scrapbook: #fcaec5;
+$accent-color-scrapbook-subtle: #ff9ab841;
+$accent-color-object: #b4e0f5;
+$accent-color-object-subtle: #b4e0f541;
 
 
 @import '~bulma/bulma.sass';
@@ -15,11 +17,16 @@ $accent-color-auth: #b4e0f5;
   min-height: 100vh;
 }
 
+.search-bar{
+  min-width: 300px;
+  margin: auto;
+}
+
 .sticky-header{
   position: -webkit-sticky;
   position: sticky;
   top: 50px;
-  z-index:9999;
+  z-index:10;
   background-color: rgba(255, 255, 255, 0.493);
 }
 
@@ -47,6 +54,25 @@ $accent-color-auth: #b4e0f5;
   color: white;
 }
 
+.scrapbooks {
+  background-color: $accent-color-scrapbook-subtle;
+}
+
+.scrapbook {
+  background-color: $accent-color-scrapbook;
+}
+
+.institution {
+  background-color: $accent-color-institution-subtle;
+}
+
+.objects{
+  background-color: $accent-color-object-subtle;
+}
+
+.preview {
+  min-height: 120px;
+}
 
 .auth-form {
   margin-top: 70px;
@@ -64,12 +90,23 @@ $accent-color-auth: #b4e0f5;
   margin: 10px auto;
 }
 
+.popup{
+  padding: 25px;
+}
 
+.create-scrapbook{
+  margin: 10px 0;
+}
+
+.search-box{
+  margin: 10px 0;
+}
 
 .home {
 margin: 0;
 overflow: hidden;
 }
+
 
 .background {
 width: 100vw;

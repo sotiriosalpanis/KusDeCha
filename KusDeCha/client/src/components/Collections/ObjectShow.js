@@ -24,7 +24,7 @@ const ObjectShow = () => {
 
 
   return (
-    <section className='section'>
+    <section className='section objects'>
       <div className='container'>
         <div className='box'>
           <div className='columns'>

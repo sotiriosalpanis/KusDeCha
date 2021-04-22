@@ -1,11 +1,11 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-// import { useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import getTokenFromLocalStorage from '../../Auth/helpers/auth'
 
 const CreateScrapbook = () => {
 
-  // const history = useHistory()
+  const history = useHistory()
 
   const [ formData, setFormData ] = useState({ 
     name: '' ,
@@ -28,7 +28,7 @@ const CreateScrapbook = () => {
         },
       })
       console.log('Scrapbook',data)
-      // history.push(`/scrapbooks/${data.id}`)
+      history.push(`scrapbooks/${data.id}`)
     } catch (err) {
       console.log(err.response.data.errors)
     }
@@ -37,26 +37,29 @@ const CreateScrapbook = () => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className='field'>
-        <input
-          className='input'
-          placeholder='Give your Scrapbook a name'
-          name='name'
-          value={formData.name}
-          onChange={handleChange}
-        >
-        </input>
-      </div>
+    <div className='create-scrapbook'>
+      <form onSubmit={handleSubmit}>
+        <div className='field'>
+          <input
+            className='input'
+            placeholder='Give your Scrapbook a name'
+            name='name'
+            value={formData.name}
+            onChange={handleChange}
+          >
+          </input>
+        </div>
      
-      <div className='field'>
-        <button 
-          type='submit'
-          className='button'
-        >Create new scrapbook
-        </button>
-      </div>
-    </form>
+        <div className='field'>
+          <button 
+            type='submit'
+            className='button'
+          >Create
+          </button>
+        </div>
+      </form>
+    </div>
+
 
   )
 }

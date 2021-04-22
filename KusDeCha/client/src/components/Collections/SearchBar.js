@@ -6,6 +6,7 @@ const SearchBar = () => {
   const [ searchTerm, setSearchTerm ] = useState('')
   const [ search, setSearch ] = useState('')
   const [ activeModal, setActiveModal ] = useState(null)
+  const [searchActive, setSearchActive ] = useState(false)
 
   const handleChange = event => {
     setSearchTerm(event.target.value)
@@ -14,6 +15,13 @@ const SearchBar = () => {
 
   const handleModal = () => {
     setActiveModal(null)
+  }
+
+  const handleEnter = () => {
+    setSearchActive(false)
+  }
+  const handleLeave = () => {
+    setSearchActive(true)
   }
 
   useEffect(() => {
@@ -26,14 +34,14 @@ const SearchBar = () => {
       <div className='field'>
         <form className='is-quarter'>
           <input 
-            className='input'
+            // className='input'
+            className={ searchActive ? 'input' : 'search-bar input'}
             value={searchTerm}
             onChange={handleChange}
+            onMouseEnter={handleEnter}
+            onMouseLeave={handleLeave}
             placeholder='Enter search term to find more images...'
           />
-          {/* <button 
-                className='button'
-                type='submit'>Search</button> */}
         </form>
         { search ?
           <div className={`modal ${activeModal}`}>

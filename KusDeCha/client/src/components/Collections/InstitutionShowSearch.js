@@ -12,12 +12,13 @@ const InstitutionShowSearch = ( ) => {
 
   const [ searchResults, setSearchResults ] = useState(null)
   const [ pageNumber, setPageNumber ] = useState(1)
-  const [ pageSize, setPageSize ] = useState(50)
   const [ imageToPost, setImageToPost ] = useState({})
   const [ disableButton, setdisableButton ] = useState(false)
   const [ imageArray, setimageArray ] = useState([])
   const [ scrapbookBody, setScrapbookBody ] = useState({})
   const [ selectScrapbook, setSelectScrapbook ] = useState(null)
+
+  const pageSize = 100
 
   useEffect(() => {
     const getData = async() => {
@@ -25,11 +26,8 @@ const InstitutionShowSearch = ( ) => {
       setSearchResults(data)
     }
     getData()
-  },[pageNumber, pageSize])
+  },[pageNumber])
 
-  const handlePageSize = event => {
-    setPageSize(event.target.value)
-  }
 
   const handleNextPage = () => {
     const nextPage = pageNumber + 1
@@ -107,6 +105,7 @@ const InstitutionShowSearch = ( ) => {
         },
       })
       console.log('Success',response)
+      setimageArray([])
     } catch (err) {
       console.log('Scrapbook error',err.response.data)
     }
@@ -118,103 +117,101 @@ const InstitutionShowSearch = ( ) => {
 
 
   return (
-    <section className='section'>
+    <section className='section institution'>
       <div className='container'>
-        <h2 className='title'>You searched for {searchTerm}</h2>
-        <h3 className='subtitle'>There are {searchResults.totalResults} results on {searchResults.totalPages} pages</h3>
-        <form>
-          <select onChange={handlePageSize} className='select'>
-            <option value={50}>50</option>
-            <option value={75}>75</option>
-            <option value={100}>100</option>
-          </select>
-        </form>
-        <div>
-          <nav className='pagination is-right' role='navigation' aria-label='pagination'>
-            <a
-              className='pagination-next'
-              onClick={handleNextPage}
-            >+</a>
+        <div className='box sticky-header'>
+          <h2 className='subtitle is-3'>You searched for {searchTerm}</h2>
+          <h3 className='subtitle'>There are {searchResults.totalResults} results on {searchResults.totalPages} pages</h3>
 
-            <ul className='pagination-list'>
-              <li>
-                <a className='pagination-link'>Pg {pageNumber}</a>
-              </li>
-
-            </ul>
-
-            {pageNumber > 1  ?
-              <>
-                <a
-                  className='pagination-previous'
-                  onClick={handlePreviousPage}
-                >-</a>
-              </>
-              :
-              <>
-                <a
-                  className='pagination-previous'
-                  disabled
-                >-</a>
-              </>
-            }
-
-          </nav>
           <div>
-            <form>
-              <div className='select'>
-                <select 
-                  onChange={handleScrapbookSelect}
-                  defaultValue='Choose a scrapbook'
-                >
-                  <option
-                    disabled={true}
-                  >Choose a scrapbook</option>
-                  {selectScrapbook.map((scrapbook, index) => {
-                    return <option
-                      key={scrapbook.id}
-                      value={index}
+            <nav className='pagination is-left' role='navigation' aria-label='pagination'>
+              <a
+                className='pagination-next'
+                onClick={handleNextPage}
+              >+</a>
+
+              <ul className='pagination-list'>
+                <li>
+                  <a className='pagination-link'>Pg {pageNumber}</a>
+                </li>
+
+              </ul>
+
+              {pageNumber > 1  ?
+                <>
+                  <a
+                    className='pagination-previous'
+                    onClick={handlePreviousPage}
+                  >-</a>
+                </>
+                :
+                <>
+                  <a
+                    className='pagination-previous'
+                    disabled
+                  >-</a>
+                </>
+              }
+            </nav>
+            { imageArray.length > 0 &&
+              <div>
+                <form>
+                  <div className='select'>
+                    <select 
+                      onChange={handleScrapbookSelect}
+                      defaultValue='Choose a scrapbook'
                     >
-                      {scrapbook.name}
-                    </option>
-                  })}
-                </select>
-              </div>
-            </form>
-            <button
-              className='button'
-              onClick={handleSubmit}
-            >
-              Add to Scrapbook
-            </button>
-          </div>
-          <section>
-            <div className='columns is-multiline'>
-              {searchResults.results.map((result,index) => {
-                return <div key={result.id}
-                  className='relative-container'
+                      <option
+                        disabled={true}
+                      >Choose a scrapbook</option>
+                      {selectScrapbook.map((scrapbook, index) => {
+                        return <option
+                          key={scrapbook.id}
+                          value={index}
+                        >
+                          {scrapbook.name}
+                        </option>
+                      })}
+                    </select>
+                  </div>
+                </form>
+                <button
+                  className='button'
+                  onClick={handleSubmit}
                 >
-                  <Link
-                    to={ `/object/${result.id}`}
-                  >
-                    <ObjectCard  { ...result } size={1} disabled={result.disabled}/>
-                  </Link>
-                
-                  <button
-                    className='absolute-container button is-info is-small is-inverted'
-                    value={index}
-                    onClick={handleSelect}
-                  >
-                  X
-                  </button>
-                </div>
-
-              })}
-            </div>
-
-          </section>
-
+              Add
+                </button>
+              </div>
+            }
+          </div>
         </div>
+        <section>
+          <div className='columns is-multiline results-page'>
+            {searchResults.results.map((result,index) => {
+              return <div key={result.id}
+                className='relative-container object'
+              >
+                <Link
+                  to={ `/object/${result.id}`}
+                >
+                  <ObjectCard  { ...result } size={1} disabled={result.disabled}/>
+                </Link>
+                
+                <button
+                  className='absolute-container button is-info is-small is-inverted'
+                  value={index}
+                  onClick={handleSelect}
+                >
+                  X
+                </button>
+              </div>
+
+            })}
+          </div>
+
+        </section>
+
+        
       </div>
     </section>
     

@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router'
 import InstitutionSearchPreview from './InstitutionSearchPreview'
 import ScrapbookImageCard from './ScrapbookImageCard'
 import { userIsOwner, getTokenFromLocalStorage } from '../../Auth/helpers/auth'
+import { Link } from 'react-router-dom'
 
 const ScrapbookShow = () => {
 
@@ -96,11 +97,11 @@ const ScrapbookShow = () => {
   
 
   return (
-    <section className='section'>
+    <section className='section scrapbooks'>
       <div className='container'>
         <div className='box'>
           {!editable ?
-            <h2 className='title'
+            <h2 className='subtitle is-2'
             >
               {scrapbook.name}</h2>
             :
@@ -141,7 +142,7 @@ const ScrapbookShow = () => {
             :
             <h3 className='subtitle'>by {scrapbook.creator.username} </h3>
           }
-          <div className='field'>
+          <div className='field search-box'>
             <form className='is-quarter'>
               <input 
                 className='input'
@@ -149,9 +150,6 @@ const ScrapbookShow = () => {
                 onChange={handleChange}
                 placeholder='Enter search term to find more images...'
               />
-              {/* <button 
-                className='button'
-                type='submit'>Search</button> */}
             </form>
             { search ?
               <div className={`modal ${activeModal}`}>
@@ -178,15 +176,19 @@ const ScrapbookShow = () => {
           </div>
         </div>
         
-        <div className='columns is-multiline'>
+        <div className='columns is-multiline results-page'>
           {scrapbook.digital_images.length > 0 ?
             scrapbook.digital_images.map(image => {
               return <div 
                 key={image.id}
-                className='column'
+                className='box relative-container object'
               >
-                <h4 className='subtitle is-6'>{image.catalogue_title}</h4>
-                <ScrapbookImageCard  imageInfo={image} size={1}/>
+                <Link
+                  to={ `/object/${image.catalogue_image_id}`}
+                >
+                  <ScrapbookImageCard  imageInfo={image} size={1}/>
+                </Link>
+                
               </div>
             })
             :
