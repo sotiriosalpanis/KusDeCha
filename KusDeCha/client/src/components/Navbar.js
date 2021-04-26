@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import SearchBar from './Collections/SearchBar'
-import { userIsAuthenticated } from '../Auth/helpers/auth'
+import { userIsAuthenticated } from '../auth/helpers/auth'
 import axios from 'axios'
 
 const Navbar = () => {
@@ -17,7 +17,6 @@ const Navbar = () => {
 
   const location = useLocation()
   useEffect(() => {
-    // re-render Navbar when url changes
   }, [location.pathname])
 
 

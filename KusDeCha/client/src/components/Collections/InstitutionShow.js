@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useHistory } from 'react-router-dom'
-import getTokenFromLocalStorage from '../../Auth/helpers/auth'
+import getTokenFromLocalStorage from '../../auth/helpers/auth'
 
 
 import ObjectCard from './ObjectCard'
@@ -128,7 +128,7 @@ const InstitutionShow = ( ) => {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get('/api/scrapbooks')
+      const { data } = await axios.get('/api/scrapbooks/')
       setSelectScrapbook(data)
     }
     getData()

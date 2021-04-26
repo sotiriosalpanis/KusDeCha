@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router'
 import InstitutionSearchPreview from './InstitutionSearchPreview'
 import ScrapbookImageCard from './ScrapbookImageCard'
-import { userIsOwner, getTokenFromLocalStorage } from '../../Auth/helpers/auth'
+import { userIsOwner, getTokenFromLocalStorage } from '../../auth/helpers/auth'
 import { Link } from 'react-router-dom'
 
 const ScrapbookShow = () => {
@@ -128,7 +128,7 @@ const ScrapbookShow = () => {
             </div>
           }
           <h3 className='subtitle'>by {scrapbook.creator.username} </h3>
-          { userIsOwner(scrapbook.creator.id) ? 
+          { userIsOwner(scrapbook.creator.id) &&
             <div>
               <button
                 className='button'
@@ -139,8 +139,6 @@ const ScrapbookShow = () => {
                 onClick={handleDelete}
               >Delete</button>
             </div> 
-            :
-            <h3 className='subtitle'>by {scrapbook.creator.username} </h3>
           }
           <div className='field search-box'>
             <form className='is-quarter'>

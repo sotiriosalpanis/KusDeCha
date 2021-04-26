@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useLocation } from 'react-router-dom'
 import ObjectCard from './ObjectCard'
-import getTokenFromLocalStorage from '../../Auth/helpers/auth'
+import getTokenFromLocalStorage from '../../auth/helpers/auth'
 
 const InstitutionShowSearch = ( ) => {
   
@@ -22,7 +22,7 @@ const InstitutionShowSearch = ( ) => {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get(`${apiRoot}images?pageSize=${pageSize}&page=${pageNumber}&query=${searchTerm}`)
+      const { data } = await axios.get(`${apiRoot}images?pageSize=${pageSize}&page=${pageNumber}&query=${searchTerm}/`)
       setSearchResults(data)
     }
     getData()
@@ -78,7 +78,7 @@ const InstitutionShowSearch = ( ) => {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get('/api/scrapbooks')
+      const { data } = await axios.get('/api/scrapbooks/')
       setSelectScrapbook(data)
     }
     getData()

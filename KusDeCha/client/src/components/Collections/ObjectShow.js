@@ -14,7 +14,7 @@ const ObjectShow = () => {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get(`https://api.wellcomecollection.org/catalogue/v2/images/${id}`)
+      const { data } = await axios.get(`https://api.wellcomecollection.org/catalogue/v2/images/${id}/`)
       setImageCatalogue(data)
     } 
     getData()

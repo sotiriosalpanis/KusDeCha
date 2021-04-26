@@ -2,14 +2,14 @@ import React from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import Navbar from './components/Navbar'
-import InstitutionIndex from './components/Collections/InstitutionIndex'
-import InstitutionShow from './components/Collections/InstitutionShow'
-import Login from './Auth/Login'
-import Register from './Auth/Register'
-import ObjectShow from './components/Collections/ObjectShow'
-import Scrapbooks from './components/Collections/Scrapbooks'
-import ScrapbookShow from './components/Collections/ScrapbookShow'
-import InstitutionShowSearch from './components/Collections/InstitutionShowSearch'
+import InstitutionIndex from './components/collections/InstitutionIndex'
+import InstitutionShow from './components/collections/InstitutionShow'
+import Login from './auth/Login'
+import Register from './auth/Register'
+import ObjectShow from './components/collections/ObjectShow'
+import Scrapbooks from './components/collections/Scrapbooks'
+import ScrapbookShow from './components/collections/ScrapbookShow'
+import InstitutionShowSearch from './components/collections/InstitutionShowSearch'
 
 
 const App = () => {

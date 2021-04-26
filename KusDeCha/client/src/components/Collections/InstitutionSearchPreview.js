@@ -11,7 +11,7 @@ const InstitutionSearchPreview = ( { searchTerm }) => {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get(`${apiRoot}images?pageSize=5&page=1&query=${searchTerm}`)
+      const { data } = await axios.get(`${apiRoot}images?pageSize=5&page=1&query=${searchTerm}/`)
       setSearchResults(data)
     }
     getData()

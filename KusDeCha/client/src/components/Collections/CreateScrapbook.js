@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
-import getTokenFromLocalStorage from '../../Auth/helpers/auth'
+import getTokenFromLocalStorage from '../../auth/helpers/auth'
 
 const CreateScrapbook = () => {
 

@@ -1,4 +1,4 @@
-$title-color: rgb(230, 254, 255);
+$title-color: rgb(236, 254, 255);
 $subtitle-color: rgb(20, 13, 26);
 $family-primary: 'Questrial', sans-serif;
 $family-secondary: 'Roboto', sans-serif;
@@ -51,7 +51,7 @@ $accent-color-object-subtle: #b4e0f541;
 .hero-image {
   background-image: url('https://iiif.wellcomecollection.org/image/B0010779/full/1024,527/0/default.jpg');
   background-size: cover;
-  color: white;
+  color: $title-color;
 }
 
 .scrapbooks {

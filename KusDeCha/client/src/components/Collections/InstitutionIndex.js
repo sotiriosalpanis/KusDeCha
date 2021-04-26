@@ -9,13 +9,12 @@ function InstitutionIndex() {
 
   useEffect(() => {
     const getData = async() => {
-      const { data } = await axios.get('/api/institutions')
+      const { data } = await axios.get('/api/institutions/')
       setInstitutions(data)
     }
     getData()
   },[])
 
-  console.log(institutions)
   
 
   return (
